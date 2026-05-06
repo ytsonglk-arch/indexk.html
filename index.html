@@ -10,12 +10,12 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
         :root { --primary: #8b5cf6; --accent: #06b6d4; --bg: #020617; }
-        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; }
+        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; overflow-x: hidden; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
         .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer; border-radius: 20px; text-align: center; padding: 20px; }
         .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); }
@@ -30,16 +30,10 @@
     <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
         <div class="glass w-full max-w-[420px] p-8 text-center shadow-2xl">
             <h1 class="text-3xl font-black mb-2 uppercase text-cyan-400">A/L Fast Track</h1>
-            <p class="text-xs text-slate-500 mb-6 uppercase tracking-widest">Connect with us before login</p>
             
-            <!-- Social Media Links -->
-            <div class="flex gap-3 mb-8">
-                <a href="https://facebook.com/YOUR_PAGE" target="_blank" class="flex-1 py-3 bg-[#1877F2]/10 border border-[#1877F2]/20 rounded-xl text-[#1877F2] font-bold text-sm hover:bg-[#1877F2] hover:text-white transition">
-                    <i class="fab fa-facebook mr-2"></i> Follow
-                </a>
-                <a href="https://youtube.com/YOUR_CHANNEL" target="_blank" class="flex-1 py-3 bg-[#FF0000]/10 border border-[#FF0000]/20 rounded-xl text-[#FF0000] font-bold text-sm hover:bg-[#FF0000] hover:text-white transition">
-                    <i class="fab fa-youtube mr-2"></i> Subscribe
-                </a>
+            <div class="flex gap-3 mb-8 mt-4">
+                <a href="YOUR_FB_LINK" class="flex-1 py-3 bg-[#1877F2]/10 border border-[#1877F2]/20 rounded-xl text-[#1877F2] font-bold text-sm hover:bg-[#1877F2] hover:text-white transition"><i class="fab fa-facebook mr-2"></i> Follow</a>
+                <a href="YOUR_YT_LINK" class="flex-1 py-3 bg-[#FF0000]/10 border border-[#FF0000]/20 rounded-xl text-[#FF0000] font-bold text-sm hover:bg-[#FF0000] hover:text-white transition"><i class="fab fa-youtube mr-2"></i> Subscribe</a>
             </div>
 
             <div id="reg-name-div" class="hidden mb-4">
@@ -57,8 +51,7 @@
     <div id="main-hub" class="hidden">
         <nav class="fixed bottom-0 left-0 w-full md:top-0 md:w-20 md:h-full bg-slate-950/90 border-t md:border-r border-white/10 flex md:flex-col justify-around items-center p-4 z-50">
             <button onclick="showSec('home')" class="p-3 hover:text-cyan-400"><i class="fas fa-home text-xl"></i></button>
-            <button onclick="showSec('quiz')" class="p-3 hover:text-cyan-400"><i class="fas fa-trophy text-xl"></i></button>
-            <button onclick="showSec('chat')" class="p-3 hover:text-cyan-400"><i class="fas fa-comments text-xl"></i></button>
+            <button onclick="showSec('leaderboard')" class="p-3 hover:text-cyan-400"><i class="fas fa-trophy text-xl"></i></button>
             <button onclick="showSec('profile')" class="p-3 hover:text-cyan-400"><i class="fas fa-user-circle text-xl"></i></button>
         </nav>
 
@@ -68,11 +61,10 @@
             <section id="sec-home" class="space-y-10">
                 <header class="flex justify-between items-center">
                     <h2 class="text-2xl font-bold">Hello, <span id="user-display" class="text-cyan-400">Student</span></h2>
-                    <div class="glass px-4 py-2 border-cyan-500/30 text-cyan-400 font-bold text-sm">
-                        <span id="days-count">000</span> Days to 2026
-                    </div>
+                    <div class="glass px-4 py-2 border-cyan-500/30 text-cyan-400 font-bold text-sm"><span id="days-count">000</span> Days to 2026</div>
                 </header>
 
+                <!-- ART STREAM -->
                 <div>
                     <h3 class="text-lg font-bold mb-6 italic text-violet-400">Art Stream Hub</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -84,6 +76,29 @@
                         <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2"></i><p class="text-xs">BC</p></div>
                     </div>
                 </div>
+
+                <!-- OTHER STREAMS (COMING SOON) -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 italic text-slate-500">Other Streams</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 opacity-50">
+                        <div class="glass p-6 text-center border-dashed"><i class="fas fa-flask mb-2"></i><p>Science - Coming Soon</p></div>
+                        <div class="glass p-6 text-center border-dashed"><i class="fas fa-calculator mb-2"></i><p>Commerce - Coming Soon</p></div>
+                        <div class="glass p-6 text-center border-dashed"><i class="fas fa-laptop-code mb-2"></i><p>Tech - Coming Soon</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEADERBOARD SECTION -->
+            <section id="sec-leaderboard" class="hidden space-y-6">
+                <h2 class="text-3xl font-bold text-yellow-500"><i class="fas fa-crown mr-2"></i> Leaderboard</h2>
+                <div class="glass overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-white/5 text-xs uppercase text-slate-500">
+                            <tr><th class="p-4">Rank</th><th class="p-4">Name</th><th class="p-4">Points</th></tr>
+                        </thead>
+                        <tbody id="leaderboard-body"></tbody>
+                    </table>
+                </div>
             </section>
 
             <!-- SUBJECT DETAIL VIEW -->
@@ -91,21 +106,14 @@
                 <button onclick="showSec('home')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
                 <h2 id="detail-subject-name" class="text-3xl font-bold text-cyan-400">Subject</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div onclick="showPaperList()" class="glass p-8 cursor-pointer hover:border-cyan-400">
-                        <i class="fas fa-file-alt text-2xl mb-4 text-cyan-400"></i>
-                        <h4 class="text-xl font-bold">Past Paper MCQs</h4>
-                    </div>
-                    <div onclick="showShortNotes()" class="glass p-8 cursor-pointer hover:border-violet-400">
-                        <i class="fas fa-lightbulb text-2xl mb-4 text-violet-400"></i>
-                        <h4 class="text-xl font-bold">Short Notes</h4>
-                    </div>
+                    <div onclick="showPaperList()" class="glass p-8 cursor-pointer hover:border-cyan-400"><i class="fas fa-file-alt text-2xl mb-4 text-cyan-400"></i><h4 class="text-xl font-bold">Past Paper MCQs</h4></div>
+                    <div onclick="showShortNotes()" class="glass p-8 cursor-pointer hover:border-violet-400"><i class="fas fa-lightbulb text-2xl mb-4 text-violet-400"></i><h4 class="text-xl font-bold">Short Notes</h4></div>
                 </div>
             </section>
 
             <!-- SHORT NOTES VIEW -->
             <section id="sec-short-notes" class="hidden space-y-6">
                 <button onclick="showSec('subject-detail')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
-                <h3 class="text-xl font-bold text-violet-400">Quick Revision Notes</h3>
                 <div id="notes-container" class="space-y-4"></div>
             </section>
 
@@ -120,29 +128,14 @@
                 <div class="glass p-6 max-w-2xl mx-auto" id="quiz-box"></div>
             </section>
 
-            <!-- CHAT VIEW -->
-            <section id="sec-chat" class="hidden">
-                <div class="glass h-[60vh] flex flex-col">
-                    <div id="chat-box" class="flex-grow p-4 overflow-y-auto space-y-4"></div>
-                    <div class="p-4 bg-white/5 flex gap-2">
-                        <input type="text" id="chat-msg" class="flex-grow bg-transparent border border-white/10 rounded-xl px-4 outline-none" placeholder="Type here...">
-                        <button onclick="sendMsg()" class="bg-cyan-600 px-6 rounded-xl"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </section>
-
             <!-- PROFILE VIEW -->
             <section id="sec-profile" class="hidden text-center space-y-6">
                 <div class="glass p-10 max-w-sm mx-auto">
                     <h2 id="prof-name" class="text-2xl font-bold mb-4">Student</h2>
-                    <div class="flex justify-around mb-8">
-                        <div><p class="text-xs opacity-50 uppercase">Points</p><p id="res-total-points" class="text-xl font-bold text-yellow-500">0</p></div>
-                        <div><p class="text-xs opacity-50 uppercase">Solved</p><p id="res-quiz-count" class="text-xl font-bold text-cyan-400">0</p></div>
-                    </div>
+                    <p id="prof-email" class="text-sm text-slate-500 mb-6"></p>
                     <button onclick="auth.signOut()" class="w-full py-3 bg-red-500/20 text-red-500 rounded-xl font-bold">Logout</button>
                 </div>
             </section>
-
         </main>
     </div>
 
@@ -156,32 +149,44 @@
         };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const rtdb = firebase.database();
+        const db = firebase.firestore();
 
-        // --- DATA ---
+        // ==========================================
+        // 1. ප්‍රශ්න ඇතුළත් කරන තැන (QUESTIONS)
+        // ==========================================
+        const subjectPapers = {
+            'Media': {
+                '2023 Media Past Paper': [
+                    {q: "පුවත්පතක හදවත ලෙස හඳුන්වන්නේ?", a: ["කර්තෘ වැකිය", "පින්තූරය", "ශීර්ෂය", "පිටු සැකසුම"], c: 0},
+                    {q: "ලොව ප්‍රථම සිනමා පටය නිපදවූයේ කවුද?", a: ["එඩිසන්", "ලුමියර් සහෝදරයෝ", "ග්‍රිෆිත්", "චැප්ලින්"], c: 1}
+                ]
+            },
+            'History': {
+                '2023 History Past Paper': [
+                    {q: "මහාවංශය රචනා කරන ලද්දේ කවුරුන් විසින්ද?", a: ["මහානාම හිමි", "මුගලන් හිමි", "ධර්මපාල රජු", "දේවානම්පියතිස්ස රජු"], c: 0}
+                ]
+            }
+        };
+
+        // ==========================================
+        // 2. SHORT NOTES ඇතුළත් කරන තැන (NOTES)
+        // ==========================================
         const shortNotesData = {
             'Media': [
-                {t:"සන්නිවේදනය", d:"තොරතුරු, අදහස් හෝ හැඟීම් එක් පාර්ශවයකින් තවත් පාර්ශවයකට හුවමාරු වීම සන්නිවේදනයයි."},
-                {t:"ජන සන්නිවේදනය", d:"විශාල හා විෂමජාතීය පිරිසක් වෙත තාක්ෂණික උපකරණ භාවිතයෙන් පණිවිඩ යැවීම මෙහි විශේෂත්වයයි."}
+                {t: "සන්නිවේදනය යනු කුමක්ද?", d: "අදහස්, තොරතුරු හෝ හැඟීම් එක් පුද්ගලයෙකුගෙන් තවත් අයෙකුට හුවමාරු වීමයි."},
+                {t: "ජන සන්නිවේදනය", d: "විශාල පිරිසක් වෙත එකවර පණිවිඩ යැවීම සඳහා තාක්ෂණික මාධ්‍ය (රූපවාහිනී, ගුවන්විදුලි) භාවිතයයි."}
             ],
             'History': [
-                {t:"මහාවංශය", d:"ලක්දිව රජවරුන්ගේ තොරතුරු ඇතුළත් ප්‍රධාන ඓතිහාසික මූලාශ්‍රයයි. මෙය මහානාම හිමියන් විසින් රචනා කරන ලදී."},
-                {t:"අනුරාධපුරය", d:"පණ්ඩුකාභය රජු විසින් ලක්දිව ප්‍රධාන අගනුවර ලෙස සැලසුම් සහගතව නිර්මාණය කරන ලදී."}
+                {t: "අනුරාධපුර රාජධානිය", d: "ලක්දිව ප්‍රථම අගනුවරයි. පණ්ඩුකාභය රජු මෙහි නිර්මාතෘ ලෙස සැලකේ."}
             ]
         };
 
-        const subjectPapers = {
-            'Media': { '2023 Media Paper': [{q:"පුවත්පතක හදවත?", a:["කර්තෘ වැකිය","පින්තූරය","ශීර්ෂ පාඨය","දැන්වීම්"], c:0}] },
-            'History': { '2023 History Paper': [{q:"ලක්දිව මුල්ම රජු?", a:["විජය","පණ්ඩුකාභය","තිස්ස","මහසෙන්"], c:1}] }
-        };
-
-        // --- AUTH LOGIC (FIXED) ---
+        // --- AUTH & FIRESTORE LOGIC ---
         let isLoginMode = true;
         function toggleAuth() {
             isLoginMode = !isLoginMode;
             document.getElementById('reg-name-div').classList.toggle('hidden', isLoginMode);
             document.getElementById('auth-btn').innerText = isLoginMode ? "Login" : "Register";
-            document.getElementById('toggle-btn').innerText = isLoginMode ? "ලියාපදිංචි වන්න" : "Login වෙත යන්න";
         }
 
         async function handleAuth() {
@@ -195,25 +200,48 @@
                 } else {
                     const res = await auth.createUserWithEmailAndPassword(email, pass);
                     await res.user.updateProfile({ displayName: name });
-                    // Save user to DB
-                    rtdb.ref('users/' + res.user.uid).set({ score: 0, count: 0, name: name });
+                    await db.collection("users").doc(res.user.uid).set({
+                        name: name,
+                        points: 0,
+                        email: email
+                    });
                 }
-            } catch (err) { alert("Error: " + err.message); }
+            } catch (err) { alert(err.message); }
         }
 
         auth.onAuthStateChanged(user => {
             document.getElementById('auth-view').classList.toggle('hidden', !!user);
             document.getElementById('main-hub').classList.toggle('hidden', !user);
             if(user) { 
-                document.getElementById('user-display').innerText = user.displayName || "Student";
-                document.getElementById('prof-name').innerText = user.displayName || "Student";
-                updateCountdown(); loadMessages();
+                document.getElementById('user-display').innerText = user.displayName;
+                document.getElementById('prof-name').innerText = user.displayName;
+                document.getElementById('prof-email').innerText = user.email;
+                loadLeaderboard();
+                updateCountdown();
             }
         });
 
-        // --- NAVIGATION ---
+        // --- LEADERBOARD LOGIC ---
+        function loadLeaderboard() {
+            db.collection("users").orderBy("points", "desc").limit(10).onSnapshot(snap => {
+                const body = document.getElementById('leaderboard-body');
+                body.innerHTML = "";
+                let rank = 1;
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    body.innerHTML += `
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-4 font-bold text-cyan-400">#${rank++}</td>
+                            <td class="p-4">${d.name}</td>
+                            <td class="p-4 font-bold text-yellow-500">${d.points}</td>
+                        </tr>`;
+                });
+            });
+        }
+
+        // --- NAVIGATION & UI ---
         function showSec(id) {
-            ['home','chat','profile','subject-detail','paper-list','quiz-play','short-notes'].forEach(s => {
+            ['home','leaderboard','profile','subject-detail','paper-list','quiz-play','short-notes'].forEach(s => {
                 document.getElementById('sec-' + s).classList.add('hidden');
             });
             document.getElementById('sec-' + id).classList.remove('hidden');
@@ -222,25 +250,24 @@
         let activeSub = "";
         function openSubject(sub) { activeSub = sub; showSec('subject-detail'); document.getElementById('detail-subject-name').innerText = sub; }
 
-        // --- SHORT NOTES ---
         function showShortNotes() {
             showSec('short-notes');
             const cont = document.getElementById('notes-container');
             cont.innerHTML = "";
-            const notes = shortNotesData[activeSub] || [{t:"Coming Soon", d:"මෙම විෂයට අදාළ කෙටි සටහන් ඉක්මනින් ඇතුළත් කරනු ලැබේ."}];
+            const notes = shortNotesData[activeSub] || [{t:"Coming Soon", d:"Notes will be added soon!"}];
             notes.forEach(n => {
-                cont.innerHTML += `<div class="note-card"><h4 class="font-bold text-cyan-400 mb-2">${n.t}</h4><p class="text-sm text-slate-300 leading-relaxed">${n.d}</p></div>`;
+                cont.innerHTML += `<div class="note-card"><h4 class="font-bold text-cyan-400 mb-2">${n.t}</h4><p class="text-sm text-slate-300">${n.d}</p></div>`;
             });
         }
 
-        // --- QUIZ & PAPERS ---
         function showPaperList() {
             showSec('paper-list');
-            const cont = document.getElementById('paper-buttons-container'); cont.innerHTML = "";
+            const cont = document.getElementById('paper-buttons-container');
+            cont.innerHTML = "";
             const papers = subjectPapers[activeSub] || {};
-            Object.keys(papers).forEach(p => {
+            Object.keys(papers).length ? Object.keys(papers).forEach(p => {
                 cont.innerHTML += `<button onclick="startQuiz('${p}')" class="glass p-5 text-left font-bold hover:border-cyan-500 transition">${p}</button>`;
-            });
+            }) : cont.innerHTML = "<p class='text-slate-500'>No papers available yet.</p>";
         }
 
         function startQuiz(pName) {
@@ -250,46 +277,28 @@
             function render() {
                 const d = qList[cur];
                 document.getElementById('quiz-box').innerHTML = `
-                    <p class="mb-6 font-bold">${d.q}</p>
-                    <div class="grid gap-3">${d.a.map((o, i) => `<button onclick="check(${i},${d.c})" class="p-4 glass text-left hover:bg-white/5" id="q${i}">${o}</button>`).join('')}</div>`;
+                    <p class="mb-6 font-bold text-lg">${d.q}</p>
+                    <div class="grid gap-3">${d.a.map((o, i) => `<button onclick="check(${i},${d.c})" class="p-4 glass text-left hover:bg-white/10" id="q${i}">${o}</button>`).join('')}</div>`;
             }
             window.check = (s, c) => {
                 const btn = document.getElementById('q'+s);
-                if(s===c) { btn.classList.add('ans-correct'); sc++; savePoints(10); } else { btn.classList.add('ans-wrong'); }
-                setTimeout(() => { cur++; if(cur < qList.length) render(); else finish(); }, 1000);
+                if(s===c) { btn.classList.add('ans-correct'); sc++; updatePoints(10); } else { btn.classList.add('ans-wrong'); }
+                setTimeout(() => { cur++; if(cur < qList.length) render(); else finish(); }, 800);
             };
-            function finish() { document.getElementById('quiz-box').innerHTML = `<div class="text-center"><h3 class="text-xl font-bold mb-4">Paper Completed!</h3><p class="mb-6">Score: ${sc*10}</p><button onclick="showSec('home')" class="bg-cyan-600 px-8 py-2 rounded-xl">Home</button></div>`; }
+            function finish() {
+                document.getElementById('quiz-box').innerHTML = `<div class="text-center"><h3 class="text-2xl font-bold mb-4">Paper Finished!</h3><p class="text-cyan-400 text-xl mb-6">Score: ${sc*10}</p><button onclick="showSec('home')" class="bg-violet-600 px-8 py-3 rounded-xl font-bold">Back to Home</button></div>`;
+            }
             render();
         }
 
-        // --- FIREBASE OPS ---
-        function savePoints(p) {
-            const uid = auth.currentUser.uid;
-            rtdb.ref('users/' + uid).transaction(c => {
-                if(!c) return {score:p, count:1};
-                return {score: (c.score||0)+p, count: (c.count||0)+1};
-            });
+        function updatePoints(p) {
+            const userRef = db.collection("users").doc(auth.currentUser.uid);
+            userRef.update({ points: firebase.firestore.FieldValue.increment(p) });
         }
 
         function updateCountdown() {
             const diff = Math.floor((new Date("August 10, 2026") - new Date()) / 86400000);
             document.getElementById('days-count').innerText = diff > 0 ? diff : 0;
-        }
-
-        // --- CHAT ---
-        function sendMsg() {
-            const i = document.getElementById('chat-msg');
-            if(i.value.trim()) {
-                rtdb.ref('chats').push({ name: auth.currentUser.displayName, text: i.value });
-                i.value = "";
-            }
-        }
-        function loadMessages() {
-            rtdb.ref('chats').limitToLast(20).on('value', s => {
-                const b = document.getElementById('chat-box'); b.innerHTML = "";
-                s.forEach(c => { const m = c.val(); b.innerHTML += `<div class="bg-white/5 p-3 rounded-xl"><p class="text-[10px] text-cyan-400 font-bold">${m.name}</p><p class="text-sm">${m.text}</p></div>`; });
-                b.scrollTop = b.scrollHeight;
-            });
         }
     </script>
 </body>
