@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Firebase Libraries -->
+    <!-- Firebase Libraries (Compat version is better for simple script tags) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* විස්මිත පසුබිම් ආලෝක රටා */
         .glow-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -45,7 +44,6 @@
             border-radius: 30px;
         }
 
-        /* Login Input Styling */
         .input-group input {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -57,7 +55,6 @@
             outline: none;
         }
 
-        /* Countdown Card */
         .countdown-box {
             background: linear-gradient(135deg, var(--primary), #6d28d9);
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
@@ -70,10 +67,9 @@
 <body>
     <div class="glow-bg"></div>
 
-    <!-- 1. ආකර්ශනීය LOGIN SYSTEM -->
+    <!-- 1. LOGIN SYSTEM -->
     <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
         <div class="glass w-full max-w-[450px] p-10 animate-pop relative overflow-hidden">
-            <!-- Decorative circle -->
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/20 rounded-full blur-3xl"></div>
             
             <div class="text-center mb-10">
@@ -107,25 +103,21 @@
         </div>
     </div>
 
-    <!-- 2. MAIN HUB (LOGIN වූ පසු පෙන්වන කොටස) -->
+    <!-- 2. MAIN HUB -->
     <div id="main-hub" class="hidden">
-        <!-- Sidebar Navigation -->
         <nav class="fixed bottom-0 left-0 w-full md:left-0 md:top-0 md:w-24 md:h-full bg-slate-950/80 backdrop-blur-md border-t md:border-r border-white/5 flex md:flex-col justify-around items-center p-5 z-50">
             <button onclick="showSection('home')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-th-large"></i></button>
-            <button onclick="showSection('study')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-lightbulb"></i></button>
             <button onclick="showSection('chat')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-comment-dots"></i></button>
-            <button onclick="showSection('profile')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-user-astronaut"></i></button>
+            <button onclick="firebase.auth().signOut()" class="text-2xl hover:text-red-400 transition"><i class="fas fa-sign-out-alt"></i></button>
         </nav>
 
         <main class="md:ml-24 p-6 pb-32 max-w-6xl mx-auto">
-            <!-- Header & Countdown -->
-            <section id="home-section" class="animate-view">
+            <section id="home-section">
                 <div class="flex flex-col md:flex-row gap-6 mb-10">
                     <div class="flex-grow">
                         <h2 class="text-3xl font-bold">Welcome, <span id="user-name" class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Student</span>!</h2>
                         <p class="text-slate-500 mt-1">අද ඔබේ ඉලක්කය ජය ගැනීමට සූදානම්ද?</p>
                     </div>
-                    <!-- සජීවී COUNTDOWN -->
                     <div class="countdown-box p-6 rounded-[2rem] flex gap-6 items-center">
                         <div class="text-center">
                             <span id="days-count" class="text-4xl font-black block">000</span>
@@ -135,12 +127,10 @@
                     </div>
                 </div>
 
-                <!-- Study Tips Section -->
-                <h3 class="text-xl font-bold mb-5 flex items-center"><i class="fas fa-star text-yellow-400 mr-3"></i> Daily Study Tips</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
                     <div class="glass p-5 border-l-4 border-violet-500">
                         <h4 class="font-bold text-violet-400 mb-2">Pomodoro ක්‍රමය</h4>
-                        <p class="text-xs text-slate-400">විනාඩි 25ක් පාඩම් කර විනාඩි 5ක් විවේක ගන්න. මෙය මතකය වැඩි කරයි.</p>
+                        <p class="text-xs text-slate-400">විනාඩි 25ක් පාඩම් කර විනාඩි 5ක් විවේක ගන්න.</p>
                     </div>
                     <div class="glass p-5 border-l-4 border-cyan-500">
                         <h4 class="font-bold text-cyan-400 mb-2">Active Recall</h4>
@@ -148,27 +138,18 @@
                     </div>
                     <div class="glass p-5 border-l-4 border-emerald-500">
                         <h4 class="font-bold text-emerald-400 mb-2">ප්‍රශ්න පත්‍ර</h4>
-                        <p class="text-xs text-slate-400">අවම වශයෙන් වසර 10ක පසුගිය ප්‍රශ්න පත්‍ර සාකච්ඡා කරන්න.</p>
+                        <p class="text-xs text-slate-400">පසුගිය ප්‍රශ්න පත්‍ර සාකච්ඡා කරන්න.</p>
                     </div>
-                </div>
-                
-                <!-- Ad / Announcement -->
-                <div class="glass p-8 bg-gradient-to-br from-cyan-900/20 to-transparent border-cyan-500/20 relative overflow-hidden mb-10">
-                    <h3 class="text-2xl font-bold mb-2">Creator's Choice</h3>
-                    <p class="text-slate-400 mb-5">හොඳම සටහන් සහ වීඩියෝ ලබා ගැනීමට අපේ Telegram සමූහයට එක්වන්න.</p>
-                    <button class="bg-cyan-500 text-slate-900 px-6 py-2 rounded-xl font-bold">Join Now</button>
-                    <i class="fas fa-paper-plane absolute -bottom-5 -right-5 text-9xl opacity-5 rotate-12"></i>
                 </div>
             </section>
 
-            <!-- සරල Chat View එකක් -->
             <section id="chat-section" class="hidden">
                 <div class="glass h-[70vh] flex flex-col p-6">
                     <h2 class="text-2xl font-bold mb-4">Student Community</h2>
                     <div id="msg-container" class="flex-grow overflow-y-auto space-y-4 mb-4"></div>
                     <div class="flex gap-3">
-                        <input type="text" id="msg-input" class="flex-grow glass p-4 rounded-2xl outline-none focus:border-cyan-500" placeholder="මෙහි යමක් ලියන්න...">
-                        <button onclick="sendMsg()" class="bg-violet-600 w-14 h-14 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
+                        <input type="text" id="msg-input" class="flex-grow glass p-4 rounded-2xl outline-none" placeholder="මෙහි යමක් ලියන්න...">
+                        <button class="bg-violet-600 w-14 h-14 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </section>
@@ -176,29 +157,22 @@
     </div>
 
     <script>
-        // --- 1. Firebase Configuration ---
-      // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+        // --- 1. Firebase Configuration (Updated to your config) ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
+            authDomain: "al-fast-track-2026.firebaseapp.com",
+            projectId: "al-fast-track-2026",
+            storageBucket: "al-fast-track-2026.firebasestorage.app",
+            messagingSenderId: "825270808353",
+            appId: "1:825270808353:web:4faf8ac0c451c48405d860",
+            measurementId: "G-BD6R6461YZ"
+        };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
-  authDomain: "al-fast-track-2026.firebaseapp.com",
-  projectId: "al-fast-track-2026",
-  storageBucket: "al-fast-track-2026.firebasestorage.app",
-  messagingSenderId: "825270808353",
-  appId: "1:825270808353:web:4faf8ac0c451c48405d860",
-  measurementId: "G-BD6R6461YZ"
-};
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-       
         // --- 2. Login/Register Toggle ---
         let isLogin = true;
         function toggleAuth() {
@@ -214,6 +188,8 @@ const analytics = getAnalytics(app);
             const password = document.getElementById('auth-password').value;
             const name = document.getElementById('reg-name').value;
 
+            if(!email || !password) return alert("Email and Password are required!");
+
             try {
                 if (isLogin) {
                     await auth.signInWithEmailAndPassword(email, password);
@@ -224,7 +200,7 @@ const analytics = getAnalytics(app);
             } catch (err) { alert(err.message); }
         }
 
-        // --- 3. UI Control ---
+        // --- 3. UI Control & Auth Observer ---
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('auth-view').classList.add('hidden');
@@ -246,10 +222,14 @@ const analytics = getAnalytics(app);
         // --- 4. Countdown Timer Logic ---
         function startCountdown() {
             const examDate = new Date("August 10, 2026").getTime();
-            const now = new Date().getTime();
-            const diff = examDate - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('days-count').innerText = days < 0 ? "0" : days.toString().padStart(3, '0');
+            const update = () => {
+                const now = new Date().getTime();
+                const diff = examDate - now;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('days-count').innerText = days < 0 ? "0" : days.toString().padStart(3, '0');
+            };
+            update();
+            setInterval(update, 1000 * 60 * 60); // Update every hour
         }
     </script>
 </body>
