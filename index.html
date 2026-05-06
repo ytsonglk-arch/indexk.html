@@ -14,174 +14,203 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
-        :root { --primary: #8b5cf6; --accent: #06b6d4; --bg: #020617; }
-        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
-        .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer; border-radius: 20px; text-align: center; padding: 20px; }
-        .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .ans-correct { background: rgba(16, 185, 129, 0.2) !important; border-color: #10b981 !important; }
-        .ans-wrong { background: rgba(239, 68, 68, 0.2) !important; border-color: #ef4444 !important; }
-        .note-card { background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1)); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 15px; margin-bottom: 10px; }
+        :root { --primary: #7c3aed; --accent: #06b6d4; --bg: #0f172a; }
+        body { background-color: var(--bg); color: #f1f5f9; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; }
+        .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; border-radius: 16px; }
+        .subject-card:hover { border-color: var(--accent); background: rgba(6, 182, 212, 0.05); transform: translateY(-3px); }
+        .chat-bubble { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 10px 15px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.03); }
+        .ans-correct { background: #059669 !important; border-color: #10b981 !important; }
+        .ans-wrong { background: #dc2626 !important; border-color: #ef4444 !important; }
     </style>
 </head>
-<body>
+<body class="pb-24 md:pb-0">
 
     <!-- AUTH VIEW -->
-    <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
-        <div class="glass w-full max-w-[420px] p-8 text-center shadow-2xl">
-            <h1 class="text-3xl font-black mb-2 uppercase text-cyan-400">A/L Fast Track</h1>
+    <div id="auth-view" class="min-h-screen flex items-center justify-center p-6 bg-[#020617]">
+        <div class="glass w-full max-w-md p-8 shadow-2xl text-center">
+            <h1 class="text-4xl font-extrabold mb-8 bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">FAST TRACK 2026</h1>
             
-            <div class="flex gap-3 mb-8 mt-4">
-                <a href="YOUR_FB_LINK" class="flex-1 py-3 bg-[#1877F2]/10 border border-[#1877F2]/20 rounded-xl text-[#1877F2] font-bold text-sm hover:bg-[#1877F2] hover:text-white transition"><i class="fab fa-facebook mr-2"></i> Follow</a>
-                <a href="YOUR_YT_LINK" class="flex-1 py-3 bg-[#FF0000]/10 border border-[#FF0000]/20 rounded-xl text-[#FF0000] font-bold text-sm hover:bg-[#FF0000] hover:text-white transition"><i class="fab fa-youtube mr-2"></i> Subscribe</a>
-            </div>
-
             <div id="reg-name-div" class="hidden mb-4">
-                <input type="text" id="reg-name" placeholder="ඔබේ නම" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 text-white">
+                <input type="text" id="reg-name" placeholder="ඔබේ නම" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-500">
             </div>
-            <input type="email" id="auth-email" placeholder="Email ලිපිනය" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-4 text-white">
-            <input type="password" id="auth-password" placeholder="මුරපදය" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-6 text-white">
+            <input type="email" id="auth-email" placeholder="Email ලිපිනය" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-500 mb-4">
+            <input type="password" id="auth-password" placeholder="මුරපදය" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 outline-none focus:border-cyan-500 mb-6">
             
-            <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-xl bg-violet-600 font-bold hover:bg-violet-700 transition">Login</button>
-            <p class="mt-4 text-sm text-slate-500">ගිණුමක් නැද්ද? <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold">ලියාපදිංචි වන්න</button></p>
+            <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-xl bg-cyan-600 font-bold hover:bg-cyan-500 transition shadow-lg shadow-cyan-900/20">ඇතුළු වන්න</button>
+            <p class="mt-6 text-slate-400">ගිණුමක් නැද්ද? <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold underline">ලියාපදිංචි වන්න</button></p>
         </div>
     </div>
 
     <!-- MAIN APP -->
-    <div id="main-hub" class="hidden">
-        <nav class="fixed bottom-0 left-0 w-full md:top-0 md:w-20 md:h-full bg-slate-950/90 border-t md:border-r border-white/10 flex md:flex-col justify-around items-center p-4 z-50">
-            <button onclick="showSec('home')" class="p-3 hover:text-cyan-400"><i class="fas fa-home text-xl"></i></button>
-            <button onclick="showSec('leaderboard')" class="p-3 hover:text-cyan-400"><i class="fas fa-trophy text-xl"></i></button>
-            <button onclick="showSec('profile')" class="p-3 hover:text-cyan-400"><i class="fas fa-user-circle text-xl"></i></button>
+    <div id="main-hub" class="hidden min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar Navigation -->
+        <nav class="fixed bottom-0 left-0 w-full md:relative md:w-24 bg-slate-950 border-t md:border-r border-white/5 flex md:flex-col justify-around items-center p-4 z-50">
+            <button onclick="showSec('home')" class="p-4 hover:text-cyan-400"><i class="fas fa-th-large text-xl"></i></button>
+            <button onclick="showSec('chat')" class="p-4 hover:text-cyan-400"><i class="fas fa-comment-dots text-xl"></i></button>
+            <button onclick="showSec('leaderboard')" class="p-4 hover:text-cyan-400"><i class="fas fa-trophy text-xl"></i></button>
+            <button onclick="showSec('profile')" class="p-4 hover:text-cyan-400"><i class="fas fa-user text-xl"></i></button>
         </nav>
 
-        <main class="md:ml-20 p-6 max-w-6xl mx-auto pb-24">
+        <!-- Content Area -->
+        <main class="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full">
             
             <!-- HOME SECTION -->
-            <section id="sec-home" class="space-y-10">
+            <section id="sec-home" class="space-y-12">
                 <header class="flex justify-between items-center">
-                    <h2 class="text-2xl font-bold">Hello, <span id="user-display" class="text-cyan-400">Student</span></h2>
-                    <div class="glass px-4 py-2 border-cyan-500/30 text-cyan-400 font-bold text-sm"><span id="days-count">000</span> Days to 2026</div>
+                    <div>
+                        <h2 class="text-2xl font-bold">ආයුබෝවන්, <span id="user-display" class="text-cyan-400">...</span></h2>
+                        <p class="text-slate-400 text-sm">අද ඔබේ ඉලක්ක ජයගමු!</p>
+                    </div>
+                    <div class="glass px-4 py-2 border-cyan-500/20 text-cyan-400 text-sm font-bold animate-pulse">
+                        2026 A/L වලට තව <span id="days-count">0</span> දිනයි
+                    </div>
                 </header>
 
-                <!-- ART STREAM -->
                 <div>
-                    <h3 class="text-lg font-bold mb-6 italic text-violet-400">Art Stream Hub</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        <div onclick="openSubject('Media')" class="subject-card"><i class="fas fa-camera text-xl mb-2"></i><p class="text-xs">Media</p></div>
-                        <div onclick="openSubject('History')" class="subject-card"><i class="fas fa-monument text-xl mb-2"></i><p class="text-xs">History</p></div>
-                        <div onclick="openSubject('Sinhala')" class="subject-card"><i class="fas fa-pen-nib text-xl mb-2"></i><p class="text-xs">Sinhala</p></div>
-                        <div onclick="openSubject('Political')" class="subject-card"><i class="fas fa-balance-scale text-xl mb-2"></i><p class="text-xs">Political</p></div>
-                        <div onclick="openSubject('Agri')" class="subject-card"><i class="fas fa-seedling text-xl mb-2"></i><p class="text-xs">Agri</p></div>
-                        <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2"></i><p class="text-xs">BC</p></div>
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="fas fa-graduation-cap text-violet-500"></i> Art Stream Hub</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div onclick="openSubject('Media')" class="subject-card p-6 text-center cursor-pointer">
+                            <div class="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-camera text-cyan-400"></i></div>
+                            <p class="text-sm font-semibold">Media</p>
+                        </div>
+                        <div onclick="openSubject('History')" class="subject-card p-6 text-center cursor-pointer">
+                            <div class="w-12 h-12 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-landmark text-orange-400"></i></div>
+                            <p class="text-sm font-semibold">History</p>
+                        </div>
+                        <div onclick="openSubject('Sinhala')" class="subject-card p-6 text-center cursor-pointer">
+                            <div class="w-12 h-12 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-book text-pink-400"></i></div>
+                            <p class="text-sm font-semibold">Sinhala</p>
+                        </div>
+                        <div onclick="openSubject('Political')" class="subject-card p-6 text-center cursor-pointer">
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-balance-scale text-blue-400"></i></div>
+                            <p class="text-sm font-semibold">Political</p>
+                        </div>
+                        <div onclick="openSubject('Agri')" class="subject-card p-6 text-center cursor-pointer">
+                            <div class="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-leaf text-green-400"></i></div>
+                            <p class="text-sm font-semibold">Agri</p>
+                        </div>
+                        <div onclick="openSubject('BC')" class="subject-card p-6 text-center cursor-pointer">
+                            <div class="w-12 h-12 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-dharmachakra text-yellow-400"></i></div>
+                            <p class="text-sm font-semibold">BC</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- OTHER STREAMS (COMING SOON) -->
                 <div>
-                    <h3 class="text-lg font-bold mb-6 italic text-slate-500">Other Streams</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 opacity-50">
-                        <div class="glass p-6 text-center border-dashed"><i class="fas fa-flask mb-2"></i><p>Science - Coming Soon</p></div>
-                        <div class="glass p-6 text-center border-dashed"><i class="fas fa-calculator mb-2"></i><p>Commerce - Coming Soon</p></div>
-                        <div class="glass p-6 text-center border-dashed"><i class="fas fa-laptop-code mb-2"></i><p>Tech - Coming Soon</p></div>
+                    <h3 class="text-lg font-bold mb-6 text-slate-500 italic">Coming Soon Streams</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 opacity-40 select-none">
+                        <div class="glass p-6 text-center border-dashed border-slate-600"><p>Science Stream</p></div>
+                        <div class="glass p-6 text-center border-dashed border-slate-600"><p>Commerce Stream</p></div>
+                        <div class="glass p-6 text-center border-dashed border-slate-600"><p>Tech Stream</p></div>
                     </div>
+                </div>
+            </section>
+
+            <!-- CHAT SECTION -->
+            <section id="sec-chat" class="hidden h-[80vh] flex flex-col">
+                <h2 class="text-2xl font-bold mb-4 text-cyan-400">Community Chat</h2>
+                <div id="chat-messages" class="flex-1 overflow-y-auto mb-4 p-4 glass space-y-4"></div>
+                <div class="flex gap-2">
+                    <input type="text" id="chat-input" placeholder="පණිවිඩයක් ලියන්න..." class="flex-1 p-4 rounded-xl bg-slate-900 border border-slate-700 outline-none">
+                    <button onclick="sendChat()" class="p-4 bg-cyan-600 rounded-xl px-8 font-bold"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </section>
 
             <!-- LEADERBOARD SECTION -->
             <section id="sec-leaderboard" class="hidden space-y-6">
-                <h2 class="text-3xl font-bold text-yellow-500"><i class="fas fa-crown mr-2"></i> Leaderboard</h2>
+                <h2 class="text-2xl font-bold text-yellow-500 flex items-center gap-3"><i class="fas fa-award"></i> Leaderboard (Top 10)</h2>
                 <div class="glass overflow-hidden">
                     <table class="w-full text-left">
-                        <thead class="bg-white/5 text-xs uppercase text-slate-500">
-                            <tr><th class="p-4">Rank</th><th class="p-4">Name</th><th class="p-4">Points</th></tr>
+                        <thead class="bg-slate-900 text-slate-400 text-xs uppercase">
+                            <tr><th class="p-5">Rank</th><th class="p-5">Student</th><th class="p-5">Total Points</th></tr>
                         </thead>
                         <tbody id="leaderboard-body"></tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- SUBJECT DETAIL VIEW -->
+            <!-- SUBJECTS & QUIZ (ප්‍රශ්න පත්‍ර කොටස) -->
             <section id="sec-subject-detail" class="hidden space-y-6">
-                <button onclick="showSec('home')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
-                <h2 id="detail-subject-name" class="text-3xl font-bold text-cyan-400">Subject</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div onclick="showPaperList()" class="glass p-8 cursor-pointer hover:border-cyan-400"><i class="fas fa-file-alt text-2xl mb-4 text-cyan-400"></i><h4 class="text-xl font-bold">Past Paper MCQs</h4></div>
-                    <div onclick="showShortNotes()" class="glass p-8 cursor-pointer hover:border-violet-400"><i class="fas fa-lightbulb text-2xl mb-4 text-violet-400"></i><h4 class="text-xl font-bold">Short Notes</h4></div>
+                <button onclick="showSec('home')" class="text-slate-500 hover:text-white"><i class="fas fa-arrow-left mr-2"></i> Back to Home</button>
+                <h2 id="detail-subject-name" class="text-3xl font-black text-cyan-400 uppercase">Subject</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div onclick="showPaperList()" class="glass p-8 cursor-pointer hover:border-cyan-500 group transition">
+                        <i class="fas fa-file-signature text-3xl mb-4 text-cyan-400 group-hover:scale-110 transition"></i>
+                        <h4 class="text-xl font-bold">Past Paper MCQs</h4>
+                    </div>
+                    <div onclick="showShortNotes()" class="glass p-8 cursor-pointer hover:border-violet-500 group transition">
+                        <i class="fas fa-bolt text-3xl mb-4 text-violet-400 group-hover:scale-110 transition"></i>
+                        <h4 class="text-xl font-bold">Short Notes</h4>
+                    </div>
                 </div>
             </section>
 
-            <!-- SHORT NOTES VIEW -->
-            <section id="sec-short-notes" class="hidden space-y-6">
-                <button onclick="showSec('subject-detail')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
-                <div id="notes-container" class="space-y-4"></div>
+            <!-- SHORT NOTES LIST -->
+            <section id="sec-short-notes" class="hidden space-y-4">
+                <button onclick="showSec('subject-detail')" class="text-slate-500 mb-4"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                <div id="notes-container" class="grid gap-4"></div>
             </section>
 
-            <!-- PAPER LIST VIEW -->
-            <section id="sec-paper-list" class="hidden space-y-6">
-                <button onclick="showSec('subject-detail')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+            <!-- PAPER LIST -->
+            <section id="sec-paper-list" class="hidden space-y-4">
+                <button onclick="showSec('subject-detail')" class="text-slate-500 mb-4"><i class="fas fa-arrow-left mr-2"></i> Back</button>
                 <div id="paper-buttons-container" class="grid gap-3"></div>
             </section>
 
-            <!-- QUIZ VIEW -->
-            <section id="sec-quiz-play" class="hidden">
-                <div class="glass p-6 max-w-2xl mx-auto" id="quiz-box"></div>
+            <!-- QUIZ PLAYER -->
+            <section id="sec-quiz-play" class="hidden flex justify-center">
+                <div class="glass p-8 w-full max-w-2xl" id="quiz-box"></div>
             </section>
 
-            <!-- PROFILE VIEW -->
-            <section id="sec-profile" class="hidden text-center space-y-6">
-                <div class="glass p-10 max-w-sm mx-auto">
-                    <h2 id="prof-name" class="text-2xl font-bold mb-4">Student</h2>
-                    <p id="prof-email" class="text-sm text-slate-500 mb-6"></p>
-                    <button onclick="auth.signOut()" class="w-full py-3 bg-red-500/20 text-red-500 rounded-xl font-bold">Logout</button>
+            <!-- PROFILE SECTION -->
+            <section id="sec-profile" class="hidden space-y-6">
+                <div class="glass p-10 max-w-sm mx-auto text-center">
+                    <div class="w-24 h-24 bg-gradient-to-tr from-cyan-500 to-violet-600 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h2 id="prof-name" class="text-2xl font-bold mb-2">Student Name</h2>
+                    <p id="prof-email" class="text-slate-500 mb-8"></p>
+                    <button onclick="auth.signOut()" class="w-full py-4 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl font-bold hover:bg-red-500 hover:text-white transition">ගිණුමෙන් ඉවත් වන්න</button>
                 </div>
             </section>
+
         </main>
     </div>
 
     <script>
-        // --- CONFIG ---
+        // --- FIREBASE SETUP ---
         const firebaseConfig = {
             apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
             authDomain: "al-fast-track-2026.firebaseapp.com",
             projectId: "al-fast-track-2026",
-            databaseURL: "https://al-fast-track-2026-default-rtdb.firebaseio.com"
+            storageBucket: "al-fast-track-2026.appspot.com",
+            messagingSenderId: "367123456789",
+            appId: "1:367123456789:web:abcdefghij"
         };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // ==========================================
-        // 1. ප්‍රශ්න ඇතුළත් කරන තැන (QUESTIONS)
-        // ==========================================
+        // --- 1. ප්‍රශ්න (QUESTIONS) මෙහි ඇතුළත් කරන්න ---
         const subjectPapers = {
             'Media': {
-                '2023 Media Past Paper': [
-                    {q: "පුවත්පතක හදවත ලෙස හඳුන්වන්නේ?", a: ["කර්තෘ වැකිය", "පින්තූරය", "ශීර්ෂය", "පිටු සැකසුම"], c: 0},
-                    {q: "ලොව ප්‍රථම සිනමා පටය නිපදවූයේ කවුද?", a: ["එඩිසන්", "ලුමියර් සහෝදරයෝ", "ග්‍රිෆිත්", "චැප්ලින්"], c: 1}
-                ]
-            },
-            'History': {
-                '2023 History Past Paper': [
-                    {q: "මහාවංශය රචනා කරන ලද්දේ කවුරුන් විසින්ද?", a: ["මහානාම හිමි", "මුගලන් හිමි", "ධර්මපාල රජු", "දේවානම්පියතිස්ස රජු"], c: 0}
+                '2023 Media MCQ': [
+                    {q: "ප්‍රථම සිංහල පුවත්පත කුමක්ද?", a: ["ලංකා ලෝකය", "ලක්මිණි පහන", "ඥානාර්ථ ප්‍රදීපය", "සරසවි සඳරැස"], c: 1},
+                    {q: "සන්නිවේදන ආකෘතියක් මුලින්ම ඉදිරිපත් කළේ කවුද?", a: ["ඇරිස්ටෝටල්", "ලැස්වෙල්", "ෂැනන්", "ගර්බ්නර්"], c: 0}
                 ]
             }
         };
 
-        // ==========================================
-        // 2. SHORT NOTES ඇතුළත් කරන තැන (NOTES)
-        // ==========================================
+        // --- 2. කෙටි සටහන් (SHORT NOTES) මෙහි ඇතුළත් කරන්න ---
         const shortNotesData = {
             'Media': [
-                {t: "සන්නිවේදනය යනු කුමක්ද?", d: "අදහස්, තොරතුරු හෝ හැඟීම් එක් පුද්ගලයෙකුගෙන් තවත් අයෙකුට හුවමාරු වීමයි."},
-                {t: "ජන සන්නිවේදනය", d: "විශාල පිරිසක් වෙත එකවර පණිවිඩ යැවීම සඳහා තාක්ෂණික මාධ්‍ය (රූපවාහිනී, ගුවන්විදුලි) භාවිතයයි."}
-            ],
-            'History': [
-                {t: "අනුරාධපුර රාජධානිය", d: "ලක්දිව ප්‍රථම අගනුවරයි. පණ්ඩුකාභය රජු මෙහි නිර්මාතෘ ලෙස සැලකේ."}
+                {t: "සන්නිවේදනය", d: "තොරතුරු හුවමාරු කර ගැනීමේ ක්‍රියාවලියයි. මූලාශ්‍රය, පණිවිඩය, නාලිකාව සහ ලබන්නා මෙහි මූලිකාංග වේ."},
+                {t: "මාධ්‍ය සදාචාරය", d: "මාධ්‍යවේදියෙකු අනුගමනය කළ යුතු යහපත් චර්යාධර්ම පද්ධතිය මෙලෙස හැඳින්වේ."}
             ]
         };
 
-        // --- AUTH & FIRESTORE LOGIC ---
+        // --- AUTH LOGIC ---
         let isLoginMode = true;
         function toggleAuth() {
             isLoginMode = !isLoginMode;
@@ -193,18 +222,12 @@
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-password').value;
             const name = document.getElementById('reg-name').value;
-
             try {
-                if (isLoginMode) {
-                    await auth.signInWithEmailAndPassword(email, pass);
-                } else {
+                if(isLoginMode) { await auth.signInWithEmailAndPassword(email, pass); }
+                else {
                     const res = await auth.createUserWithEmailAndPassword(email, pass);
                     await res.user.updateProfile({ displayName: name });
-                    await db.collection("users").doc(res.user.uid).set({
-                        name: name,
-                        points: 0,
-                        email: email
-                    });
+                    await db.collection("users").doc(res.user.uid).set({ name, points: 0, email });
                 }
             } catch (err) { alert(err.message); }
         }
@@ -212,39 +235,58 @@
         auth.onAuthStateChanged(user => {
             document.getElementById('auth-view').classList.toggle('hidden', !!user);
             document.getElementById('main-hub').classList.toggle('hidden', !user);
-            if(user) { 
+            if(user) {
                 document.getElementById('user-display').innerText = user.displayName;
                 document.getElementById('prof-name').innerText = user.displayName;
                 document.getElementById('prof-email').innerText = user.email;
                 loadLeaderboard();
+                loadChat();
                 updateCountdown();
             }
         });
 
-        // --- LEADERBOARD LOGIC ---
+        // --- CHAT SYSTEM ---
+        function loadChat() {
+            db.collection("chats").orderBy("time", "desc").limit(50).onSnapshot(snap => {
+                const box = document.getElementById('chat-messages');
+                box.innerHTML = "";
+                snap.docs.reverse().forEach(doc => {
+                    const d = doc.data();
+                    box.innerHTML += `<div class="chat-bubble"><p class="text-[10px] text-cyan-400 font-bold">${d.user}</p><p class="text-sm">${d.msg}</p></div>`;
+                });
+                box.scrollTop = box.scrollHeight;
+            });
+        }
+
+        async function sendChat() {
+            const msg = document.getElementById('chat-input').value;
+            if(!msg) return;
+            await db.collection("chats").add({
+                user: auth.currentUser.displayName,
+                msg: msg,
+                time: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            document.getElementById('chat-input').value = "";
+        }
+
+        // --- LEADERBOARD ---
         function loadLeaderboard() {
             db.collection("users").orderBy("points", "desc").limit(10).onSnapshot(snap => {
                 const body = document.getElementById('leaderboard-body');
                 body.innerHTML = "";
-                let rank = 1;
+                let r = 1;
                 snap.forEach(doc => {
                     const d = doc.data();
-                    body.innerHTML += `
-                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
-                            <td class="p-4 font-bold text-cyan-400">#${rank++}</td>
-                            <td class="p-4">${d.name}</td>
-                            <td class="p-4 font-bold text-yellow-500">${d.points}</td>
-                        </tr>`;
+                    body.innerHTML += `<tr class="border-b border-white/5"><td class="p-5 font-bold">#${r++}</td><td class="p-5">${d.name}</td><td class="p-5 text-cyan-400 font-bold">${d.points}</td></tr>`;
                 });
             });
         }
 
-        // --- NAVIGATION & UI ---
+        // --- NAVIGATION ---
         function showSec(id) {
-            ['home','leaderboard','profile','subject-detail','paper-list','quiz-play','short-notes'].forEach(s => {
-                document.getElementById('sec-' + s).classList.add('hidden');
-            });
-            document.getElementById('sec-' + id).classList.remove('hidden');
+            const secs = ['home','chat','leaderboard','profile','subject-detail','paper-list','quiz-play','short-notes'];
+            secs.forEach(s => document.getElementById('sec-'+s).classList.add('hidden'));
+            document.getElementById('sec-'+id).classList.remove('hidden');
         }
 
         let activeSub = "";
@@ -254,9 +296,8 @@
             showSec('short-notes');
             const cont = document.getElementById('notes-container');
             cont.innerHTML = "";
-            const notes = shortNotesData[activeSub] || [{t:"Coming Soon", d:"Notes will be added soon!"}];
-            notes.forEach(n => {
-                cont.innerHTML += `<div class="note-card"><h4 class="font-bold text-cyan-400 mb-2">${n.t}</h4><p class="text-sm text-slate-300">${n.d}</p></div>`;
+            (shortNotesData[activeSub] || []).forEach(n => {
+                cont.innerHTML += `<div class="glass p-6"><h4 class="font-bold text-violet-400 mb-2">${n.t}</h4><p class="text-slate-300 text-sm leading-relaxed">${n.d}</p></div>`;
             });
         }
 
@@ -265,9 +306,9 @@
             const cont = document.getElementById('paper-buttons-container');
             cont.innerHTML = "";
             const papers = subjectPapers[activeSub] || {};
-            Object.keys(papers).length ? Object.keys(papers).forEach(p => {
-                cont.innerHTML += `<button onclick="startQuiz('${p}')" class="glass p-5 text-left font-bold hover:border-cyan-500 transition">${p}</button>`;
-            }) : cont.innerHTML = "<p class='text-slate-500'>No papers available yet.</p>";
+            Object.keys(papers).forEach(p => {
+                cont.innerHTML += `<button onclick="startQuiz('${p}')" class="glass p-5 text-left font-bold border-l-4 border-cyan-500 hover:bg-white/5 transition">${p}</button>`;
+            });
         }
 
         function startQuiz(pName) {
@@ -277,28 +318,24 @@
             function render() {
                 const d = qList[cur];
                 document.getElementById('quiz-box').innerHTML = `
-                    <p class="mb-6 font-bold text-lg">${d.q}</p>
-                    <div class="grid gap-3">${d.a.map((o, i) => `<button onclick="check(${i},${d.c})" class="p-4 glass text-left hover:bg-white/10" id="q${i}">${o}</button>`).join('')}</div>`;
+                    <p class="text-xs text-slate-500 mb-2 uppercase tracking-widest">Question ${cur+1} of ${qList.length}</p>
+                    <p class="text-xl font-bold mb-8">${d.q}</p>
+                    <div class="grid gap-4">${d.a.map((o, i) => `<button onclick="check(${i},${d.c})" id="o${i}" class="p-5 glass text-left hover:bg-cyan-500/10 transition">${o}</button>`).join('')}</div>`;
             }
             window.check = (s, c) => {
-                const btn = document.getElementById('q'+s);
-                if(s===c) { btn.classList.add('ans-correct'); sc++; updatePoints(10); } else { btn.classList.add('ans-wrong'); }
-                setTimeout(() => { cur++; if(cur < qList.length) render(); else finish(); }, 800);
+                if(s===c) { document.getElementById('o'+s).classList.add('ans-correct'); sc++; db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10)}); }
+                else { document.getElementById('o'+s).classList.add('ans-wrong'); document.getElementById('o'+c).classList.add('ans-correct'); }
+                setTimeout(() => { cur++; if(cur < qList.length) render(); else finish(); }, 1200);
             };
             function finish() {
-                document.getElementById('quiz-box').innerHTML = `<div class="text-center"><h3 class="text-2xl font-bold mb-4">Paper Finished!</h3><p class="text-cyan-400 text-xl mb-6">Score: ${sc*10}</p><button onclick="showSec('home')" class="bg-violet-600 px-8 py-3 rounded-xl font-bold">Back to Home</button></div>`;
+                document.getElementById('quiz-box').innerHTML = `<div class="text-center"><h2 class="text-3xl font-bold mb-4">සියල්ල අවසන්!</h2><p class="text-cyan-400 text-2xl mb-8">Score: ${sc*10}</p><button onclick="showSec('home')" class="bg-cyan-600 px-10 py-4 rounded-xl font-bold">මුල් පිටුවට</button></div>`;
             }
             render();
         }
 
-        function updatePoints(p) {
-            const userRef = db.collection("users").doc(auth.currentUser.uid);
-            userRef.update({ points: firebase.firestore.FieldValue.increment(p) });
-        }
-
         function updateCountdown() {
-            const diff = Math.floor((new Date("August 10, 2026") - new Date()) / 86400000);
-            document.getElementById('days-count').innerText = diff > 0 ? diff : 0;
+            const d = Math.floor((new Date("2026-08-01") - new Date()) / 86400000);
+            document.getElementById('days-count').innerText = d > 0 ? d : 0;
         }
     </script>
 </body>
