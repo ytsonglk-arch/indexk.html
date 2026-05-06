@@ -3,188 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A/L Fast Track - 2026</title>
+    <title>A/L Fast Track Elite | Future Focused</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Firebase SDKs (Compat Version for Web Apps) -->
+    <!-- Firebase Libraries -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Abhaya+Libre:wght@700&display=swap');
-        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: white; }
-        .sinhala-font { font-family: 'Abhaya Libre', serif; }
-        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .tab-content { display: none; }
-        .active-tab { display: block; }
-        input::placeholder { color: #94a3b8; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
+
+        :root {
+            --primary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg: #020617;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* විස්මිත පසුබිම් ආලෝක රටා */
+        .glow-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15), transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1), transparent 40%);
+            z-index: -1;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+        }
+
+        /* Login Input Styling */
+        .input-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+            outline: none;
+        }
+
+        /* Countdown Card */
+        .countdown-box {
+            background: linear-gradient(135deg, var(--primary), #6d28d9);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .animate-pop { animation: pop 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48); }
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
+    <div class="glow-bg"></div>
 
-    <!-- 1. Login Screen -->
-    <div id="login-screen" class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-        <div class="mb-8">
-            <h1 class="text-4xl font-extrabold text-yellow-500 mb-2">A/L Fast Track</h1>
-            <p class="text-gray-400">ඔබේ ජයග්‍රහණයේ වේගවත්ම මාවත</p>
-        </div>
-        <div class="w-full max-w-sm glass-card p-8 rounded-3xl shadow-2xl">
-            <input type="text" id="user-name" placeholder="ඔබේ නම ඇතුළත් කරන්න" 
-                class="w-full p-4 mb-4 rounded-xl bg-slate-800 border border-slate-700 outline-none focus:border-yellow-500 text-white">
-            <button onclick="handleLogin()" id="login-btn" 
-                class="w-full p-4 bg-yellow-500 text-slate-900 font-bold rounded-xl shadow-lg hover:bg-yellow-400 transition">
-                ඇතුළු වන්න
-            </button>
-        </div>
-    </div>
+    <!-- 1. ආකර්ශනීය LOGIN SYSTEM -->
+    <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
+        <div class="glass w-full max-w-[450px] p-10 animate-pop relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/20 rounded-full blur-3xl"></div>
+            
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold tracking-tighter mb-2">A/L <span class="text-cyan-400">FAST TRACK</span></h1>
+                <p class="text-slate-400 text-xs uppercase tracking-[0.3em]">Ignite Your Potential</p>
+            </div>
 
-    <!-- 2. Dashboard -->
-    <div id="dashboard" class="hidden min-h-screen p-6">
-        <header class="flex justify-between items-start mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-yellow-500 sinhala-font">මාස කිහිපයෙන් ගොඩ දාගමු! 🎯</h1>
-                <p id="welcome-msg" class="text-gray-400 italic">සාදරයෙන් පිළිගනිමු!</p>
-            </div>
-            <button onclick="handleLogout()" class="text-red-400 text-xs bg-red-400/10 px-3 py-1 rounded-lg">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
-        </header>
+            <div id="auth-form" class="space-y-5">
+                <div id="reg-name-div" class="hidden input-group">
+                    <label class="text-xs font-bold text-slate-500 mb-2 block ml-1">FULL NAME</label>
+                    <input type="text" id="reg-name" placeholder="ඔබේ නම" class="w-full p-4 rounded-2xl text-white">
+                </div>
+                <div class="input-group">
+                    <label class="text-xs font-bold text-slate-500 mb-2 block ml-1">EMAIL ADDRESS</label>
+                    <input type="email" id="auth-email" placeholder="student@example.com" class="w-full p-4 rounded-2xl text-white">
+                </div>
+                <div class="input-group">
+                    <label class="text-xs font-bold text-slate-500 mb-2 block ml-1">PASSWORD</label>
+                    <input type="password" id="auth-password" placeholder="••••••••" class="w-full p-4 rounded-2xl text-white">
+                </div>
+                
+                <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 font-bold shadow-lg hover:scale-[1.02] active:scale-95 transition-all mt-4">
+                    LOGIN TO HUB
+                </button>
 
-        <h2 class="text-xl font-semibold mb-4">විෂයයන් (Art Stream)</h2>
-        <div class="grid grid-cols-1 gap-4 mb-10">
-            <div onclick="openSubject('Media Studies')" class="glass-card p-5 rounded-2xl flex items-center cursor-pointer">
-                <div class="bg-purple-600 p-4 rounded-xl mr-4"><i class="fas fa-video"></i></div>
-                <span class="text-lg font-bold">Media Studies</span>
-            </div>
-            <div onclick="openSubject('Political Science')" class="glass-card p-5 rounded-2xl flex items-center cursor-pointer">
-                <div class="bg-blue-600 p-4 rounded-xl mr-4"><i class="fas fa-gavel"></i></div>
-                <span class="text-lg font-bold">Political Science</span>
-            </div>
-            <div onclick="openSubject('Buddhist Culture')" class="glass-card p-5 rounded-2xl flex items-center cursor-pointer">
-                <div class="bg-orange-600 p-4 rounded-xl mr-4"><i class="fas fa-dharmachakra"></i></div>
-                <span class="text-lg font-bold">Buddhist Culture</span>
-            </div>
-            <div onclick="openSubject('Agri Science')" class="glass-card p-5 rounded-2xl flex items-center cursor-pointer">
-                <div class="bg-green-600 p-4 rounded-xl mr-4"><i class="fas fa-leaf"></i></div>
-                <span class="text-lg font-bold">Agri Science</span>
-            </div>
-            <div onclick="openSubject('History')" class="glass-card p-5 rounded-2xl flex items-center cursor-pointer">
-                <div class="bg-amber-800 p-4 rounded-xl mr-4"><i class="fas fa-landmark"></i></div>
-                <span class="text-lg font-bold">History</span>
+                <p class="text-center text-sm text-slate-500">
+                    <span id="toggle-msg">අලුත් ගිණුමක් අවශ්‍යද?</span>
+                    <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold ml-1 hover:underline">Register</button>
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- 3. Content View -->
-    <div id="subject-screen" class="hidden min-h-screen p-6">
-        <button onclick="backToDashboard()" class="mb-6 text-gray-400 flex items-center bg-slate-800 px-4 py-2 rounded-xl">
-            <i class="fas fa-arrow-left mr-2"></i> ආපසු
-        </button>
-        <h1 id="selected-subject-name" class="text-2xl font-bold text-yellow-500 mb-6">Subject Name</h1>
+    <!-- 2. MAIN HUB (LOGIN වූ පසු පෙන්වන කොටස) -->
+    <div id="main-hub" class="hidden">
+        <!-- Sidebar Navigation -->
+        <nav class="fixed bottom-0 left-0 w-full md:left-0 md:top-0 md:w-24 md:h-full bg-slate-950/80 backdrop-blur-md border-t md:border-r border-white/5 flex md:flex-col justify-around items-center p-5 z-50">
+            <button onclick="showSection('home')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-th-large"></i></button>
+            <button onclick="showSection('study')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-lightbulb"></i></button>
+            <button onclick="showSection('chat')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-comment-dots"></i></button>
+            <button onclick="showSection('profile')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-user-astronaut"></i></button>
+        </nav>
 
-        <div class="flex space-x-2 mb-6 bg-slate-800 p-1 rounded-xl">
-            <button onclick="showTab('papers')" id="btn-papers" class="flex-1 py-2 rounded-lg font-bold bg-yellow-500 text-slate-900">Papers</button>
-            <button onclick="showTab('guess')" id="btn-guess" class="flex-1 py-2 rounded-lg font-bold">අනුමාන</button>
-            <button onclick="showTab('notes')" id="btn-notes" class="flex-1 py-2 rounded-lg font-bold">Notes</button>
-        </div>
+        <main class="md:ml-24 p-6 pb-32 max-w-6xl mx-auto">
+            <!-- Header & Countdown -->
+            <section id="home-section" class="animate-view">
+                <div class="flex flex-col md:flex-row gap-6 mb-10">
+                    <div class="flex-grow">
+                        <h2 class="text-3xl font-bold">Welcome, <span id="user-name" class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Student</span>!</h2>
+                        <p class="text-slate-500 mt-1">අද ඔබේ ඉලක්කය ජය ගැනීමට සූදානම්ද?</p>
+                    </div>
+                    <!-- සජීවී COUNTDOWN -->
+                    <div class="countdown-box p-6 rounded-[2rem] flex gap-6 items-center">
+                        <div class="text-center">
+                            <span id="days-count" class="text-4xl font-black block">000</span>
+                            <span class="text-[10px] opacity-70 uppercase font-bold tracking-widest">Days to A/L</span>
+                        </div>
+                        <i class="fas fa-hourglass-half text-2xl opacity-50 animate-pulse"></i>
+                    </div>
+                </div>
 
-        <div id="papers" class="tab-content active-tab space-y-4">
-            <div class="glass-card p-4 rounded-xl flex justify-between items-center italic">ප්‍රශ්න පත්‍ර ඉතා ඉක්මනින් මෙතනින්...</div>
-        </div>
-        <div id="guess" class="tab-content space-y-4">
-            <div class="glass-card p-4 rounded-xl border-l-4 border-yellow-500 italic text-yellow-500">2026 අනුමාන පත්‍රය 01</div>
-        </div>
-        <div id="notes" class="tab-content space-y-4 text-gray-300 italic">
-            <div class="glass-card p-4 rounded-xl">කෙටි සටහන් සූදානම් වෙමින් පවතී.</div>
-        </div>
+                <!-- Study Tips Section -->
+                <h3 class="text-xl font-bold mb-5 flex items-center"><i class="fas fa-star text-yellow-400 mr-3"></i> Daily Study Tips</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                    <div class="glass p-5 border-l-4 border-violet-500">
+                        <h4 class="font-bold text-violet-400 mb-2">Pomodoro ක්‍රමය</h4>
+                        <p class="text-xs text-slate-400">විනාඩි 25ක් පාඩම් කර විනාඩි 5ක් විවේක ගන්න. මෙය මතකය වැඩි කරයි.</p>
+                    </div>
+                    <div class="glass p-5 border-l-4 border-cyan-500">
+                        <h4 class="font-bold text-cyan-400 mb-2">Active Recall</h4>
+                        <p class="text-xs text-slate-400">පාඩම් කළ පසු පොත වසා තමාටම කරුණු කියා දෙන්න.</p>
+                    </div>
+                    <div class="glass p-5 border-l-4 border-emerald-500">
+                        <h4 class="font-bold text-emerald-400 mb-2">ප්‍රශ්න පත්‍ර</h4>
+                        <p class="text-xs text-slate-400">අවම වශයෙන් වසර 10ක පසුගිය ප්‍රශ්න පත්‍ර සාකච්ඡා කරන්න.</p>
+                    </div>
+                </div>
+                
+                <!-- Ad / Announcement -->
+                <div class="glass p-8 bg-gradient-to-br from-cyan-900/20 to-transparent border-cyan-500/20 relative overflow-hidden mb-10">
+                    <h3 class="text-2xl font-bold mb-2">Creator's Choice</h3>
+                    <p class="text-slate-400 mb-5">හොඳම සටහන් සහ වීඩියෝ ලබා ගැනීමට අපේ Telegram සමූහයට එක්වන්න.</p>
+                    <button class="bg-cyan-500 text-slate-900 px-6 py-2 rounded-xl font-bold">Join Now</button>
+                    <i class="fas fa-paper-plane absolute -bottom-5 -right-5 text-9xl opacity-5 rotate-12"></i>
+                </div>
+            </section>
+
+            <!-- සරල Chat View එකක් -->
+            <section id="chat-section" class="hidden">
+                <div class="glass h-[70vh] flex flex-col p-6">
+                    <h2 class="text-2xl font-bold mb-4">Student Community</h2>
+                    <div id="msg-container" class="flex-grow overflow-y-auto space-y-4 mb-4"></div>
+                    <div class="flex gap-3">
+                        <input type="text" id="msg-input" class="flex-grow glass p-4 rounded-2xl outline-none focus:border-cyan-500" placeholder="මෙහි යමක් ලියන්න...">
+                        <button onclick="sendMsg()" class="bg-violet-600 w-14 h-14 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script>
-        // ======= 🚀 FIREBASE CONFIGURATION =======
+        // --- 1. Firebase Configuration ---
         const firebaseConfig = {
-            apiKey: "AIzaSyB_10UzdkgZPlu-P361PYbEQjTwbKjjWx0",
-            authDomain: "al-fast-track.firebaseapp.com",
-            projectId: "al-fast-track",
-            storageBucket: "al-fast-track.firebasestorage.app",
-            messagingSenderId: "272353911468",
-            appId: "1:272353911468:web:07c22eb0c9f167fce37509",
-            measurementId: "G-ZJBCLCQCX2"
+            apiKey: "YOUR_NEW_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT",
+            databaseURL: "YOUR_DATABASE_URL",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_ID",
+            appId: "YOUR_APP_ID"
         };
-
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // ======= LOGIN LOGIC =======
-        async function handleLogin() {
-            const name = document.getElementById('user-name').value.trim();
-            const btn = document.getElementById('login-btn');
+        // --- 2. Login/Register Toggle ---
+        let isLogin = true;
+        function toggleAuth() {
+            isLogin = !isLogin;
+            document.getElementById('reg-name-div').classList.toggle('hidden');
+            document.getElementById('auth-btn').innerText = isLogin ? "LOGIN TO HUB" : "CREATE ACCOUNT";
+            document.getElementById('toggle-msg').innerText = isLogin ? "අලුත් ගිණුමක් අවශ්‍යද?" : "දැනටමත් ගිණුමක් තිබේද?";
+            document.getElementById('toggle-btn').innerText = isLogin ? "Register" : "Login";
+        }
 
-            if (!name) return alert("කරුණාකර ඔබේ නම ඇතුළත් කරන්න.");
-            
-            btn.innerText = "සම්බන්ධ වෙමින්...";
-            btn.disabled = true;
+        async function handleAuth() {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const name = document.getElementById('reg-name').value;
 
             try {
-                const userCredential = await auth.signInAnonymously();
-                const user = userCredential.user;
+                if (isLogin) {
+                    await auth.signInWithEmailAndPassword(email, password);
+                } else {
+                    const res = await auth.createUserWithEmailAndPassword(email, password);
+                    await res.user.updateProfile({ displayName: name });
+                }
+            } catch (err) { alert(err.message); }
+        }
 
-                // Firestore එකේ ළමයාගේ නම සේව් කිරීම
-                await db.collection("students").doc(user.uid).set({
-                    name: name,
-                    joinedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-                localStorage.setItem('fasttrack_user', name);
-                showDashboard(name);
-            } catch (error) {
-                alert("ගැටලුවක් පවතී: " + error.message);
-                btn.innerText = "ඇතුළු වන්න";
-                btn.disabled = false;
+        // --- 3. UI Control ---
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('auth-view').classList.add('hidden');
+                document.getElementById('main-hub').classList.remove('hidden');
+                document.getElementById('user-name').innerText = user.displayName || "Student";
+                startCountdown();
+            } else {
+                document.getElementById('auth-view').classList.remove('hidden');
+                document.getElementById('main-hub').classList.add('hidden');
             }
+        });
+
+        function showSection(sec) {
+            document.getElementById('home-section').classList.add('hidden');
+            document.getElementById('chat-section').classList.add('hidden');
+            document.getElementById(sec + '-section').classList.remove('hidden');
         }
 
-        function showDashboard(name) {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            document.getElementById('welcome-msg').innerText = `ආයුබෝවන්, ${name}!`;
+        // --- 4. Countdown Timer Logic ---
+        function startCountdown() {
+            const examDate = new Date("August 10, 2026").getTime();
+            const now = new Date().getTime();
+            const diff = examDate - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('days-count').innerText = days < 0 ? "0" : days.toString().padStart(3, '0');
         }
-
-        function handleLogout() {
-            auth.signOut().then(() => {
-                localStorage.removeItem('fasttrack_user');
-                location.reload();
-            });
-        }
-
-        // ======= NAVIGATION =======
-        function openSubject(name) {
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('subject-screen').classList.remove('hidden');
-            document.getElementById('selected-subject-name').innerText = name;
-        }
-
-        function backToDashboard() {
-            document.getElementById('subject-screen').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-        }
-
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
-            document.querySelectorAll('#subject-screen button[id^="btn-"]').forEach(b => {
-                b.classList.remove('bg-yellow-500', 'text-slate-900');
-            });
-            document.getElementById(tabId).classList.add('active-tab');
-            document.getElementById('btn-' + tabId).classList.add('bg-yellow-500', 'text-slate-900');
-        }
-
-        window.onload = () => {
-            const savedName = localStorage.getItem('fasttrack_user');
-            if (savedName) showDashboard(savedName);
-        };
     </script>
 </body>
 </html>
