@@ -15,36 +15,46 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
         :root { --primary: #8b5cf6; --accent: #06b6d4; --bg: #020617; }
-        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; overflow-x: hidden; }
+        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; }
         .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
-        .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15), transparent 40%), radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1), transparent 40%); z-index: -1; }
         .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer; border-radius: 20px; text-align: center; padding: 20px; }
-        .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(6, 182, 212, 0.05); }
-        .coming-soon-card { opacity: 0.6; border: 1px dashed rgba(255,255,255,0.2); pointer-events: none; }
-        .badge-soon { font-size: 10px; background: #334155; padding: 2px 8px; border-radius: 20px; color: #94a3b8; margin-top: 5px; display: inline-block; }
-        .ans-correct { background: rgba(16, 185, 129, 0.2) !important; border-color: #10b981 !important; color: #10b981; }
-        .ans-wrong { background: rgba(239, 68, 68, 0.2) !important; border-color: #ef4444 !important; color: #ef4444; }
-        .leaderboard-row { background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; padding: 12px 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .ans-correct { background: rgba(16, 185, 129, 0.2) !important; border-color: #10b981 !important; }
+        .ans-wrong { background: rgba(239, 68, 68, 0.2) !important; border-color: #ef4444 !important; }
+        .note-card { background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1)); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 15px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <div class="glow-bg"></div>
 
     <!-- AUTH VIEW -->
     <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
-        <div class="glass w-full max-w-[400px] p-8 text-center shadow-2xl">
-            <h1 class="text-3xl font-black mb-6 uppercase tracking-tighter text-cyan-400">A/L Fast Track</h1>
-            <div id="reg-name-div" class="hidden mb-4"><input type="text" id="reg-name" placeholder="Full Name" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 text-white"></div>
-            <input type="email" id="auth-email" placeholder="Email" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-4 text-white">
-            <input type="password" id="auth-password" placeholder="Password" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-6 text-white">
-            <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-xl bg-violet-600 font-bold hover:bg-violet-700 transition shadow-lg shadow-violet-900/20">Login</button>
-            <p class="mt-4 text-sm text-slate-500">Don't have an account? <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold">Register</button></p>
+        <div class="glass w-full max-w-[420px] p-8 text-center shadow-2xl">
+            <h1 class="text-3xl font-black mb-2 uppercase text-cyan-400">A/L Fast Track</h1>
+            <p class="text-xs text-slate-500 mb-6 uppercase tracking-widest">Connect with us before login</p>
+            
+            <!-- Social Media Links -->
+            <div class="flex gap-3 mb-8">
+                <a href="https://facebook.com/YOUR_PAGE" target="_blank" class="flex-1 py-3 bg-[#1877F2]/10 border border-[#1877F2]/20 rounded-xl text-[#1877F2] font-bold text-sm hover:bg-[#1877F2] hover:text-white transition">
+                    <i class="fab fa-facebook mr-2"></i> Follow
+                </a>
+                <a href="https://youtube.com/YOUR_CHANNEL" target="_blank" class="flex-1 py-3 bg-[#FF0000]/10 border border-[#FF0000]/20 rounded-xl text-[#FF0000] font-bold text-sm hover:bg-[#FF0000] hover:text-white transition">
+                    <i class="fab fa-youtube mr-2"></i> Subscribe
+                </a>
+            </div>
+
+            <div id="reg-name-div" class="hidden mb-4">
+                <input type="text" id="reg-name" placeholder="ඔබේ නම" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 text-white">
+            </div>
+            <input type="email" id="auth-email" placeholder="Email ලිපිනය" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-4 text-white">
+            <input type="password" id="auth-password" placeholder="මුරපදය" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-6 text-white">
+            
+            <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-xl bg-violet-600 font-bold hover:bg-violet-700 transition">Login</button>
+            <p class="mt-4 text-sm text-slate-500">ගිණුමක් නැද්ද? <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold">ලියාපදිංචි වන්න</button></p>
         </div>
     </div>
 
     <!-- MAIN APP -->
     <div id="main-hub" class="hidden">
-        <!-- Navigation -->
         <nav class="fixed bottom-0 left-0 w-full md:top-0 md:w-20 md:h-full bg-slate-950/90 border-t md:border-r border-white/10 flex md:flex-col justify-around items-center p-4 z-50">
             <button onclick="showSec('home')" class="p-3 hover:text-cyan-400"><i class="fas fa-home text-xl"></i></button>
             <button onclick="showSec('quiz')" class="p-3 hover:text-cyan-400"><i class="fas fa-trophy text-xl"></i></button>
@@ -56,113 +66,80 @@
             
             <!-- HOME SECTION -->
             <section id="sec-home" class="space-y-10">
-                <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h2 class="text-2xl font-bold">Hello, <span id="user-display" class="text-cyan-400">Student</span>!</h2>
-                        <p class="text-slate-400 text-sm">මීළඟ විභාගයට සූදානම් වෙමු.</p>
-                    </div>
-                    <div class="glass px-6 py-3 border-cyan-500/30 text-center">
-                        <span id="days-count" class="text-2xl font-black text-cyan-400 block">000</span>
-                        <span class="text-[10px] uppercase tracking-widest opacity-60">Days to A/L 2026</span>
+                <header class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Hello, <span id="user-display" class="text-cyan-400">Student</span></h2>
+                    <div class="glass px-4 py-2 border-cyan-500/30 text-cyan-400 font-bold text-sm">
+                        <span id="days-count">000</span> Days to 2026
                     </div>
                 </header>
 
-                <!-- ACTIVE STREAMS -->
                 <div>
-                    <h3 class="text-lg font-bold mb-6 flex items-center"><i class="fas fa-star text-yellow-500 mr-2"></i> Art Stream Hub</h3>
+                    <h3 class="text-lg font-bold mb-6 italic text-violet-400">Art Stream Hub</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                        <div onclick="openSubject('Media')" class="subject-card"><i class="fas fa-camera text-xl mb-2 text-cyan-400"></i><p class="text-xs font-bold">Media</p></div>
-                        <div onclick="openSubject('History')" class="subject-card"><i class="fas fa-monument text-xl mb-2 text-orange-400"></i><p class="text-xs font-bold">History</p></div>
-                        <div onclick="openSubject('Sinhala')" class="subject-card"><i class="fas fa-pen-nib text-xl mb-2 text-pink-400"></i><p class="text-xs font-bold">Sinhala</p></div>
-                        <div onclick="openSubject('Political')" class="subject-card"><i class="fas fa-balance-scale text-xl mb-2 text-red-400"></i><p class="text-xs font-bold">Political</p></div>
-                        <div onclick="openSubject('Agri')" class="subject-card"><i class="fas fa-seedling text-xl mb-2 text-emerald-400"></i><p class="text-xs font-bold">Agri</p></div>
-                        <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2 text-amber-500"></i><p class="text-xs font-bold">BC</p></div>
-                    </div>
-                </div>
-
-                <!-- COMING SOON STREAMS -->
-                <div class="space-y-8">
-                    <div>
-                        <h3 class="text-slate-500 text-sm font-bold mb-4 uppercase tracking-wider">Science Stream (Coming Soon)</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            <div class="subject-card coming-soon-card"><i class="fas fa-microscope mb-2"></i><p class="text-xs">Biology</p><span class="badge-soon">Soon</span></div>
-                            <div class="subject-card coming-soon-card"><i class="fas fa-atom mb-2"></i><p class="text-xs">Physics</p><span class="badge-soon">Soon</span></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-slate-500 text-sm font-bold mb-4 uppercase tracking-wider">Commerce & Tech (Coming Soon)</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            <div class="subject-card coming-soon-card"><i class="fas fa-chart-line mb-2"></i><p class="text-xs">Economics</p><span class="badge-soon">Soon</span></div>
-                            <div class="subject-card coming-soon-card"><i class="fas fa-laptop-code mb-2"></i><p class="text-xs">ICT</p><span class="badge-soon">Soon</span></div>
-                        </div>
+                        <div onclick="openSubject('Media')" class="subject-card"><i class="fas fa-camera text-xl mb-2"></i><p class="text-xs">Media</p></div>
+                        <div onclick="openSubject('History')" class="subject-card"><i class="fas fa-monument text-xl mb-2"></i><p class="text-xs">History</p></div>
+                        <div onclick="openSubject('Sinhala')" class="subject-card"><i class="fas fa-pen-nib text-xl mb-2"></i><p class="text-xs">Sinhala</p></div>
+                        <div onclick="openSubject('Political')" class="subject-card"><i class="fas fa-balance-scale text-xl mb-2"></i><p class="text-xs">Political</p></div>
+                        <div onclick="openSubject('Agri')" class="subject-card"><i class="fas fa-seedling text-xl mb-2"></i><p class="text-xs">Agri</p></div>
+                        <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2"></i><p class="text-xs">BC</p></div>
                     </div>
                 </div>
             </section>
 
             <!-- SUBJECT DETAIL VIEW -->
             <section id="sec-subject-detail" class="hidden space-y-6">
-                <button onclick="showSec('home')" class="text-slate-500 hover:text-white"><i class="fas fa-chevron-left mr-2"></i> ආපසු</button>
-                <h2 id="detail-subject-name" class="text-3xl font-bold text-cyan-400 uppercase">Subject</h2>
+                <button onclick="showSec('home')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                <h2 id="detail-subject-name" class="text-3xl font-bold text-cyan-400">Subject</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div onclick="showPaperList()" class="glass p-8 cursor-pointer hover:border-cyan-500/50 transition">
-                        <i class="fas fa-file-lines text-3xl mb-4 text-cyan-400"></i>
+                    <div onclick="showPaperList()" class="glass p-8 cursor-pointer hover:border-cyan-400">
+                        <i class="fas fa-file-alt text-2xl mb-4 text-cyan-400"></i>
                         <h4 class="text-xl font-bold">Past Paper MCQs</h4>
-                        <p class="text-slate-500 text-sm">පසුගිය වසරවල ප්‍රශ්න පත්‍ර සඳහා පිළිතුරු සපයන්න.</p>
                     </div>
-                    <div class="glass p-8 opacity-50">
-                        <i class="fas fa-book text-3xl mb-4 text-violet-400"></i>
+                    <div onclick="showShortNotes()" class="glass p-8 cursor-pointer hover:border-violet-400">
+                        <i class="fas fa-lightbulb text-2xl mb-4 text-violet-400"></i>
                         <h4 class="text-xl font-bold">Short Notes</h4>
-                        <p class="text-slate-500 text-sm">ඉක්මනින් පාඩම් මතක් කරගන්න. (Coming Soon)</p>
                     </div>
                 </div>
             </section>
 
+            <!-- SHORT NOTES VIEW -->
+            <section id="sec-short-notes" class="hidden space-y-6">
+                <button onclick="showSec('subject-detail')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                <h3 class="text-xl font-bold text-violet-400">Quick Revision Notes</h3>
+                <div id="notes-container" class="space-y-4"></div>
+            </section>
+
             <!-- PAPER LIST VIEW -->
             <section id="sec-paper-list" class="hidden space-y-6">
-                <button onclick="showSec('subject-detail')" class="text-slate-500"><i class="fas fa-chevron-left mr-2"></i> ආපසු</button>
-                <h3 class="text-xl font-bold">ප්‍රශ්න පත්‍රය තෝරන්න</h3>
+                <button onclick="showSec('subject-detail')" class="text-slate-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
                 <div id="paper-buttons-container" class="grid gap-3"></div>
             </section>
 
             <!-- QUIZ VIEW -->
             <section id="sec-quiz-play" class="hidden">
-                <div class="glass p-6 md:p-10 max-w-2xl mx-auto" id="quiz-box"></div>
+                <div class="glass p-6 max-w-2xl mx-auto" id="quiz-box"></div>
             </section>
 
-            <!-- LEADERBOARD -->
-            <section id="sec-quiz" class="hidden space-y-6">
-                <h2 class="text-2xl font-bold italic"><i class="fas fa-crown text-yellow-500 mr-2"></i> TOP STUDENTS</h2>
-                <div class="glass p-6" id="leaderboard-list"></div>
-            </section>
-
-            <!-- CHAT SECTION -->
+            <!-- CHAT VIEW -->
             <section id="sec-chat" class="hidden">
-                <div class="glass h-[60vh] md:h-[70vh] flex flex-col overflow-hidden">
-                    <div class="p-4 border-b border-white/10 bg-white/5 font-bold text-cyan-400 italic">GLOBAL DISCUSSION</div>
-                    <div id="chat-box" class="flex-grow p-6 overflow-y-auto space-y-4 flex flex-col"></div>
-                    <div class="p-4 bg-slate-900/50 flex gap-2">
-                        <input type="text" id="chat-msg" class="flex-grow bg-white/5 border border-white/10 rounded-xl px-4 outline-none focus:border-cyan-500 text-white" placeholder="පණිවිඩයක් ලියන්න...">
-                        <button onclick="sendMsg()" class="bg-cyan-600 hover:bg-cyan-500 w-12 h-12 rounded-xl transition"><i class="fas fa-paper-plane"></i></button>
+                <div class="glass h-[60vh] flex flex-col">
+                    <div id="chat-box" class="flex-grow p-4 overflow-y-auto space-y-4"></div>
+                    <div class="p-4 bg-white/5 flex gap-2">
+                        <input type="text" id="chat-msg" class="flex-grow bg-transparent border border-white/10 rounded-xl px-4 outline-none" placeholder="Type here...">
+                        <button onclick="sendMsg()" class="bg-cyan-600 px-6 rounded-xl"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </section>
 
-            <!-- PROFILE SECTION -->
+            <!-- PROFILE VIEW -->
             <section id="sec-profile" class="hidden text-center space-y-6">
-                <div class="glass p-10 max-w-md mx-auto">
-                    <div class="w-24 h-24 bg-gradient-to-tr from-violet-600 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl font-bold shadow-xl">U</div>
-                    <h2 id="prof-name" class="text-2xl font-bold">Student Name</h2>
-                    <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                            <span class="block text-[10px] text-slate-500 uppercase tracking-widest mb-1">Total Points</span>
-                            <span id="res-total-points" class="text-2xl font-black text-yellow-500">0</span>
-                        </div>
-                        <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                            <span class="block text-[10px] text-slate-500 uppercase tracking-widest mb-1">Quizzes Done</span>
-                            <span id="res-quiz-count" class="text-2xl font-black text-cyan-400">0</span>
-                        </div>
+                <div class="glass p-10 max-w-sm mx-auto">
+                    <h2 id="prof-name" class="text-2xl font-bold mb-4">Student</h2>
+                    <div class="flex justify-around mb-8">
+                        <div><p class="text-xs opacity-50 uppercase">Points</p><p id="res-total-points" class="text-xl font-bold text-yellow-500">0</p></div>
+                        <div><p class="text-xs opacity-50 uppercase">Solved</p><p id="res-quiz-count" class="text-xl font-bold text-cyan-400">0</p></div>
                     </div>
-                    <button onclick="auth.signOut()" class="w-full mt-8 py-4 bg-red-500/10 text-red-500 rounded-xl font-bold border border-red-500/20 hover:bg-red-500 hover:text-white transition">Log Out</button>
+                    <button onclick="auth.signOut()" class="w-full py-3 bg-red-500/20 text-red-500 rounded-xl font-bold">Logout</button>
                 </div>
             </section>
 
@@ -170,164 +147,149 @@
     </div>
 
     <script>
-        // FIREBASE SETUP
+        // --- CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
             authDomain: "al-fast-track-2026.firebaseapp.com",
             projectId: "al-fast-track-2026",
-            storageBucket: "al-fast-track-2026.firebasestorage.app",
-            messagingSenderId: "825270808353",
-            appId: "1:825270808353:web:4faf8ac0c451c48405d860",
             databaseURL: "https://al-fast-track-2026-default-rtdb.firebaseio.com"
         };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const rtdb = firebase.database();
 
-        // QUIZ DATA
-        const subjectPapers = {
-            'Media': { '2023 Media I': [{q:"ජන සන්නිවේදනයේ මූලික ලක්ෂණය?", a:["ප්‍රතිපෝෂණය ක්ෂණික වීම","සංකීර්ණ තාක්ෂණය","පුද්ගලික බව","නිශ්ශබ්දතාව"], c:1},{q:"ප්‍රථම සිංහල පුවත්පත?", a:["ලංකා ලෝකය","ලක්මිණි පහන","දිවයින","සිළුමිණ"], c:1},{q:"සන්නිවේදනය යනු?", a:["තොරතුරු හුවමාරුව","කෑමක්","සෙල්ලමක්","ගමනක්"], c:0},{q:"අන්තර් පුද්ගල සන්නිවේදනය යනු?", a:["තමා සමග","දෙදෙනෙකු අතර","පිරිසක් සමග","විශාල පිරිසක් සමග"], c:1},{q:"ගුවන්විදුලිය අයත් වන්නේ?", a:["දෘශ්‍ය","ශ්‍රව්‍ය","මුද්‍රිත","සමාජ"], c:1}] },
-            'History': { '2023 History I': [{q:"මහාවංශය ලියූ හිමිනම?", a:["මහානාම හිමි","මිහිඳු හිමි","අසෝක හිමි","තිස්ස හිමි"], c:0},{q:"අනුරාධපුරයේ මුල්ම රජු?", a:["පණ්ඩුකාභය","විජය","තිස්ස","මහසෙන්"], c:0},{q:"ධාතුසේන රජු කල වැව?", a:["මහකනදරාව","කලාවැව","මින්නේරිය","පරාක්‍රම සමුද්‍රය"], c:1},{q:"සිගිරිය නිර්මාණය කළේ?", a:["කාශ්‍යප","මුගලන්","ධාතුසේන","මහසෙන්"], c:0},{q:"පොළොන්නරුවේ උච්චතම රජු?", a:["1 පරාක්‍රමබාහු","විජයබාහු","නිශ්ශංකමල්ල","කල්‍යාණවතී"], c:0}] },
-            'Sinhala': { 'Model Paper I': [{q:"සිංහල හෝඩියේ ස්වර ගණන?", a:["10","18","12","16"], c:1},{q:"නාම පදයක් නොවන්නේ?", a:["ගස","කනවා","ළමයා","කොළඹ"], c:1},{q:"සන්ධි අක්ෂරයක්?", a:["අ","ඓ","ක","ම"], c:1},{q:"ගම්පෙරළිය කෘතියේ කර්තෘ?", a:["මාර්ටින් වික්‍රමසිංහ","සරච්චන්ද්‍ර","අමරසේකර","මහානාම"], c:0},{q:"ප්‍රාණාක්ෂරයක් යනු?", a:["ස්වර","ව්‍යංජන","මුර්ධජ","අල්පප්‍රාණ"], c:0}] },
-            'Political': { '2023 Political I': [{q:"ප්‍රජාතන්ත්‍රවාදයේ උපත?", a:["ග්‍රීසිය","ඉන්දියාව","ඇමරිකාව","එංගලන්තය"], c:0},{q:"ලංකාවේ ව්‍යවස්ථා ගණන?", a:["1","2","3","4"], c:1},{q:"රාජ්‍යයක මූලිකාංග ගණන?", a:["2","3","4","5"], c:2},{q:"ඇරිස්ටෝටල් යනු?", a:["දේශපාලන විද්‍යාවේ පියා","ගණිතඥයෙක්","කවියෙක්","නායකයෙක්"], c:0},{q:"ඡන්ද බලය ලැබුණ වසර?", a:["1931","1948","1956","1977"], c:0}] },
-            'Agri': { '2023 Agri I': [{q:"ප්‍රධානතම වගාව?", a:["වී","තේ","රබර්","පොල්"], c:0},{q:"කාබනික පොහොරක්?", a:["යූරියා","කොම්පෝස්ට්","MOP","TSP"], c:1},{q:"පසෙහි PH අගය?", a:["ආම්ලිකතාව","බර","වර්ණය","සුවඳ"], c:0},{q:"හරිතාගාර වායුව?", a:["CO2","O2","N2","H2"], c:0},{q:"කෘමිනාශකයක්?", a:["ඩයසිනොන්","වතුර","තෙල්","කිරි"], c:0}] },
-            'BC': { '2023 BC I': [{q:"බුදුරදුන් උපන් ස්ථානය?", a:["ලුම්බිණිය","කුසිනාරාව","බුද්ධගයාව","ඉසිපතනය"], c:0},{q:"ප්‍රථම ධර්ම දේශනාව?", a:["ධම්මචක්ක","සිගාලෝවාද","මංගල","කරණීය"], c:0},{q:"බුද්ධගයාව ඇත්තේ?", a:["ඉන්දියාවේ","නේපාලයේ","ලංකාවේ","චීනයේ"], c:0},{q:"පළමු සංගායනාව පැවැත්වූයේ?", a:["රජගහ නුවර","වෛශාලී","මිහින්තලය","අනුරාධපුර"], c:0},{q:"බුද්ධත්වයට පත් වූයේ?", a:["බෝ මැඩ","ගඟ අසල","කැලේ","මාළිගාවේ"], c:0}] }
+        // --- DATA ---
+        const shortNotesData = {
+            'Media': [
+                {t:"සන්නිවේදනය", d:"තොරතුරු, අදහස් හෝ හැඟීම් එක් පාර්ශවයකින් තවත් පාර්ශවයකට හුවමාරු වීම සන්නිවේදනයයි."},
+                {t:"ජන සන්නිවේදනය", d:"විශාල හා විෂමජාතීය පිරිසක් වෙත තාක්ෂණික උපකරණ භාවිතයෙන් පණිවිඩ යැවීම මෙහි විශේෂත්වයයි."}
+            ],
+            'History': [
+                {t:"මහාවංශය", d:"ලක්දිව රජවරුන්ගේ තොරතුරු ඇතුළත් ප්‍රධාන ඓතිහාසික මූලාශ්‍රයයි. මෙය මහානාම හිමියන් විසින් රචනා කරන ලදී."},
+                {t:"අනුරාධපුරය", d:"පණ්ඩුකාභය රජු විසින් ලක්දිව ප්‍රධාන අගනුවර ලෙස සැලසුම් සහගතව නිර්මාණය කරන ලදී."}
+            ]
         };
 
-        let activeSubject = "", sessionCorrect = 0, sessionWrong = 0, canClick = true;
+        const subjectPapers = {
+            'Media': { '2023 Media Paper': [{q:"පුවත්පතක හදවත?", a:["කර්තෘ වැකිය","පින්තූරය","ශීර්ෂ පාඨය","දැන්වීම්"], c:0}] },
+            'History': { '2023 History Paper': [{q:"ලක්දිව මුල්ම රජු?", a:["විජය","පණ්ඩුකාභය","තිස්ස","මහසෙන්"], c:1}] }
+        };
 
-        // AUTH LOGIC
+        // --- AUTH LOGIC (FIXED) ---
+        let isLoginMode = true;
         function toggleAuth() {
-            const isLogin = document.getElementById('auth-btn').innerText === "Login";
-            document.getElementById('reg-name-div').classList.toggle('hidden', isLogin);
-            document.getElementById('auth-btn').innerText = isLogin ? "Register" : "Login";
-            document.getElementById('toggle-btn').innerText = isLogin ? "Login" : "Register";
+            isLoginMode = !isLoginMode;
+            document.getElementById('reg-name-div').classList.toggle('hidden', isLoginMode);
+            document.getElementById('auth-btn').innerText = isLoginMode ? "Login" : "Register";
+            document.getElementById('toggle-btn').innerText = isLoginMode ? "ලියාපදිංචි වන්න" : "Login වෙත යන්න";
         }
 
         async function handleAuth() {
-            const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value, n = document.getElementById('reg-name').value;
-            try { if(document.getElementById('auth-btn').innerText === "Login") await auth.signInWithEmailAndPassword(e, p);
-                  else { const res = await auth.createUserWithEmailAndPassword(e, p); await res.user.updateProfile({displayName: n}); }
-            } catch(err) { alert(err.message); }
+            const email = document.getElementById('auth-email').value;
+            const pass = document.getElementById('auth-password').value;
+            const name = document.getElementById('reg-name').value;
+
+            try {
+                if (isLoginMode) {
+                    await auth.signInWithEmailAndPassword(email, pass);
+                } else {
+                    const res = await auth.createUserWithEmailAndPassword(email, pass);
+                    await res.user.updateProfile({ displayName: name });
+                    // Save user to DB
+                    rtdb.ref('users/' + res.user.uid).set({ score: 0, count: 0, name: name });
+                }
+            } catch (err) { alert("Error: " + err.message); }
         }
 
         auth.onAuthStateChanged(user => {
             document.getElementById('auth-view').classList.toggle('hidden', !!user);
             document.getElementById('main-hub').classList.toggle('hidden', !user);
-            if(user) { document.getElementById('user-display').innerText = user.displayName; document.getElementById('prof-name').innerText = user.displayName; updateCountdown(); loadMessages(); }
+            if(user) { 
+                document.getElementById('user-display').innerText = user.displayName || "Student";
+                document.getElementById('prof-name').innerText = user.displayName || "Student";
+                updateCountdown(); loadMessages();
+            }
         });
 
-        // NAVIGATION
+        // --- NAVIGATION ---
         function showSec(id) {
-            ['home','quiz','chat','profile','subject-detail','paper-list','quiz-play'].forEach(s => document.getElementById('sec-' + s).classList.add('hidden'));
+            ['home','chat','profile','subject-detail','paper-list','quiz-play','short-notes'].forEach(s => {
+                document.getElementById('sec-' + s).classList.add('hidden');
+            });
             document.getElementById('sec-' + id).classList.remove('hidden');
-            if(id === 'quiz') loadLeaderboard();
-            if(id === 'profile') updateProfileResults();
         }
 
-        // QUIZ FLOW
-        function openSubject(sub) { activeSubject = sub; showSec('subject-detail'); document.getElementById('detail-subject-name').innerText = sub; }
-        
+        let activeSub = "";
+        function openSubject(sub) { activeSub = sub; showSec('subject-detail'); document.getElementById('detail-subject-name').innerText = sub; }
+
+        // --- SHORT NOTES ---
+        function showShortNotes() {
+            showSec('short-notes');
+            const cont = document.getElementById('notes-container');
+            cont.innerHTML = "";
+            const notes = shortNotesData[activeSub] || [{t:"Coming Soon", d:"මෙම විෂයට අදාළ කෙටි සටහන් ඉක්මනින් ඇතුළත් කරනු ලැබේ."}];
+            notes.forEach(n => {
+                cont.innerHTML += `<div class="note-card"><h4 class="font-bold text-cyan-400 mb-2">${n.t}</h4><p class="text-sm text-slate-300 leading-relaxed">${n.d}</p></div>`;
+            });
+        }
+
+        // --- QUIZ & PAPERS ---
         function showPaperList() {
             showSec('paper-list');
             const cont = document.getElementById('paper-buttons-container'); cont.innerHTML = "";
-            const papers = subjectPapers[activeSubject] || {};
-            Object.keys(papers).forEach(pName => {
-                cont.innerHTML += `<button onclick="startPaper('${pName}')" class="glass p-5 text-left font-bold hover:bg-white/5 transition flex justify-between"><span>${pName}</span> <i class="fas fa-chevron-right opacity-30"></i></button>`;
+            const papers = subjectPapers[activeSub] || {};
+            Object.keys(papers).forEach(p => {
+                cont.innerHTML += `<button onclick="startQuiz('${p}')" class="glass p-5 text-left font-bold hover:border-cyan-500 transition">${p}</button>`;
             });
         }
 
-        function startPaper(pName) {
+        function startQuiz(pName) {
             showSec('quiz-play');
-            const qList = subjectPapers[activeSubject][pName];
-            let currentQ = 0; sessionCorrect = 0; sessionWrong = 0;
-            function renderQ() {
-                canClick = true; const d = qList[currentQ];
+            const qList = subjectPapers[activeSub][pName];
+            let cur = 0; let sc = 0;
+            function render() {
+                const d = qList[cur];
                 document.getElementById('quiz-box').innerHTML = `
-                    <div class="mb-8"><span class="text-xs text-cyan-500 uppercase tracking-widest">Question ${currentQ + 1} of ${qList.length}</span><h3 class="text-xl font-bold mt-2">${d.q}</h3></div>
-                    <div class="grid gap-3">${d.a.map((opt, i) => `<button id="opt-${i}" onclick="checkAns(${i}, ${d.c})" class="p-4 glass text-left hover:border-cyan-500 transition">${opt}</button>`).join('')}</div>`;
+                    <p class="mb-6 font-bold">${d.q}</p>
+                    <div class="grid gap-3">${d.a.map((o, i) => `<button onclick="check(${i},${d.c})" class="p-4 glass text-left hover:bg-white/5" id="q${i}">${o}</button>`).join('')}</div>`;
             }
-            window.checkAns = (sel, cor) => {
-                if(!canClick) return; canClick = false;
-                const s = document.getElementById(`opt-${sel}`), c = document.getElementById(`opt-${cor}`);
-                if(sel === cor) { s.classList.add('ans-correct'); sessionCorrect++; savePoints(10); } else { s.classList.add('ans-wrong'); c.classList.add('ans-correct'); sessionWrong++; }
-                setTimeout(() => { currentQ++; if(currentQ < qList.length) renderQ(); else showFinalReport(); }, 1200);
+            window.check = (s, c) => {
+                const btn = document.getElementById('q'+s);
+                if(s===c) { btn.classList.add('ans-correct'); sc++; savePoints(10); } else { btn.classList.add('ans-wrong'); }
+                setTimeout(() => { cur++; if(cur < qList.length) render(); else finish(); }, 1000);
             };
-            renderQ();
+            function finish() { document.getElementById('quiz-box').innerHTML = `<div class="text-center"><h3 class="text-xl font-bold mb-4">Paper Completed!</h3><p class="mb-6">Score: ${sc*10}</p><button onclick="showSec('home')" class="bg-cyan-600 px-8 py-2 rounded-xl">Home</button></div>`; }
+            render();
         }
 
-        function showFinalReport() {
-            document.getElementById('quiz-box').innerHTML = `
-                <div class="text-center space-y-6">
-                    <h3 class="text-2xl font-bold">ප්‍රතිඵල වාර්තාව</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20 text-emerald-400 font-bold">${sessionCorrect} Correct</div>
-                        <div class="bg-red-500/10 p-4 rounded-xl border border-red-500/20 text-red-400 font-bold">${sessionWrong} Wrong</div>
-                    </div>
-                    <div class="glass p-6"><span class="text-xs opacity-50 block mb-1 uppercase">Final Score</span><span class="text-5xl font-black text-cyan-400">${sessionCorrect * 10}</span></div>
-                    <button onclick="showSec('home')" class="w-full py-4 bg-cyan-600 rounded-xl font-bold">ආපසු Home වෙත</button>
-                </div>`;
-        }
-
-        // FIREBASE DATA
+        // --- FIREBASE OPS ---
         function savePoints(p) {
-            const u = auth.currentUser;
-            rtdb.ref('users/' + u.uid).transaction(c => {
+            const uid = auth.currentUser.uid;
+            rtdb.ref('users/' + uid).transaction(c => {
                 if(!c) return {score:p, count:1};
-                return {score:(c.score||0)+p, count:(c.count||0)+1};
-            });
-            rtdb.ref('leaderboard/' + u.uid).update({name: u.displayName, score: firebase.database.ServerValue.increment(p)});
-        }
-
-        function updateProfileResults() {
-            rtdb.ref('users/' + auth.currentUser.uid).on('value', s => {
-                const d = s.val() || {score:0, count:0};
-                document.getElementById('res-total-points').innerText = d.score;
-                document.getElementById('res-quiz-count').innerText = d.count;
+                return {score: (c.score||0)+p, count: (c.count||0)+1};
             });
         }
 
-        function loadLeaderboard() {
-            rtdb.ref('leaderboard').orderByChild('score').limitToLast(10).on('value', s => {
-                const l = document.getElementById('leaderboard-list'); l.innerHTML = "";
-                let arr = []; s.forEach(c => arr.push(c.val()));
-                arr.reverse().forEach(p => {
-                    l.innerHTML += `<div class="leaderboard-row"><span>${p.name}</span><span class="text-cyan-400 font-bold">${p.score}</span></div>`;
-                });
-            });
+        function updateCountdown() {
+            const diff = Math.floor((new Date("August 10, 2026") - new Date()) / 86400000);
+            document.getElementById('days-count').innerText = diff > 0 ? diff : 0;
         }
 
-        // CHAT LOGIC
+        // --- CHAT ---
         function sendMsg() {
-            const i = document.getElementById('chat-msg'); if(!i.value.trim()) return;
-            rtdb.ref('global_chat').push({name: auth.currentUser.displayName, text: i.value, uid: auth.currentUser.uid, time: Date.now()});
-            i.value = "";
+            const i = document.getElementById('chat-msg');
+            if(i.value.trim()) {
+                rtdb.ref('chats').push({ name: auth.currentUser.displayName, text: i.value });
+                i.value = "";
+            }
         }
-
         function loadMessages() {
-            rtdb.ref('global_chat').limitToLast(30).on('value', s => {
+            rtdb.ref('chats').limitToLast(20).on('value', s => {
                 const b = document.getElementById('chat-box'); b.innerHTML = "";
-                s.forEach(c => {
-                    const m = c.val();
-                    const isMe = m.uid === auth.currentUser.uid;
-                    b.innerHTML += `
-                        <div class="flex ${isMe ? 'justify-end' : 'justify-start'} w-full">
-                            <div class="${isMe ? 'bg-cyan-600' : 'bg-white/10'} p-3 rounded-2xl max-w-[80%] shadow-lg">
-                                <span class="text-[9px] ${isMe ? 'text-cyan-200' : 'text-cyan-500'} block font-bold mb-1 uppercase">${m.name}</span>
-                                <span class="text-sm">${m.text}</span>
-                            </div>
-                        </div>`;
-                });
+                s.forEach(c => { const m = c.val(); b.innerHTML += `<div class="bg-white/5 p-3 rounded-xl"><p class="text-[10px] text-cyan-400 font-bold">${m.name}</p><p class="text-sm">${m.text}</p></div>`; });
                 b.scrollTop = b.scrollHeight;
             });
-        }
-
-        // COUNTDOWN
-        function updateCountdown() {
-            const target = new Date("August 10, 2026").getTime();
-            const now = new Date().getTime();
-            const diff = Math.floor((target - now) / (1000 * 60 * 60 * 24));
-            document.getElementById('days-count').innerText = diff > 0 ? diff : 0;
         }
     </script>
 </body>
