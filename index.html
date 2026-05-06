@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A/L Fast Track Elite | Future Focused</title>
+    <title>A/L Fast Track 2026 | Elite Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Firebase Libraries (Compat version is better for simple script tags) -->
+    <!-- Firebase Libraries (Compat mode for easy integration) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -15,141 +15,114 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
-
-        :root {
-            --primary: #8b5cf6;
-            --accent: #06b6d4;
-            --bg: #020617;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .glow-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15), transparent 40%),
-                        radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1), transparent 40%);
-            z-index: -1;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-        }
-
-        .input-group input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-        }
-        .input-group input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
-            outline: none;
-        }
-
-        .countdown-box {
-            background: linear-gradient(135deg, var(--primary), #6d28d9);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-        }
-
-        .animate-pop { animation: pop 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48); }
-        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        :root { --primary: #8b5cf6; --accent: #06b6d4; --bg: #020617; }
+        body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 28px; }
+        .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15), transparent 40%), radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1), transparent 40%); z-index: -1; }
+        .input-style { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); outline: none; transition: 0.3s; }
+        .input-style:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(6, 182, 212, 0.2); }
     </style>
 </head>
 <body>
     <div class="glow-bg"></div>
 
-    <!-- 1. LOGIN SYSTEM -->
+    <!-- 1. AUTHENTICATION VIEW -->
     <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
-        <div class="glass w-full max-w-[450px] p-10 animate-pop relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/20 rounded-full blur-3xl"></div>
-            
+        <div class="glass w-full max-w-[450px] p-10 shadow-2xl">
             <div class="text-center mb-10">
                 <h1 class="text-4xl font-extrabold tracking-tighter mb-2">A/L <span class="text-cyan-400">FAST TRACK</span></h1>
-                <p class="text-slate-400 text-xs uppercase tracking-[0.3em]">Ignite Your Potential</p>
+                <p class="text-slate-400 text-[10px] uppercase tracking-[0.4em]">2026 Academic Hub</p>
             </div>
 
-            <div id="auth-form" class="space-y-5">
-                <div id="reg-name-div" class="hidden input-group">
-                    <label class="text-xs font-bold text-slate-500 mb-2 block ml-1">FULL NAME</label>
-                    <input type="text" id="reg-name" placeholder="ඔබේ නම" class="w-full p-4 rounded-2xl text-white">
+            <div class="space-y-4">
+                <div id="reg-name-div" class="hidden">
+                    <label class="text-[10px] font-bold text-slate-500 mb-1 block ml-1 uppercase">Full Name</label>
+                    <input type="text" id="reg-name" placeholder="ඔබේ නම" class="w-full p-4 rounded-2xl input-style">
                 </div>
-                <div class="input-group">
-                    <label class="text-xs font-bold text-slate-500 mb-2 block ml-1">EMAIL ADDRESS</label>
-                    <input type="email" id="auth-email" placeholder="student@example.com" class="w-full p-4 rounded-2xl text-white">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 mb-1 block ml-1 uppercase">Email Address</label>
+                    <input type="email" id="auth-email" placeholder="student@example.com" class="w-full p-4 rounded-2xl input-style">
                 </div>
-                <div class="input-group">
-                    <label class="text-xs font-bold text-slate-500 mb-2 block ml-1">PASSWORD</label>
-                    <input type="password" id="auth-password" placeholder="••••••••" class="w-full p-4 rounded-2xl text-white">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 mb-1 block ml-1 uppercase">Password</label>
+                    <input type="password" id="auth-password" placeholder="••••••••" class="w-full p-4 rounded-2xl input-style">
                 </div>
-                
-                <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 font-bold shadow-lg hover:scale-[1.02] active:scale-95 transition-all mt-4">
-                    LOGIN TO HUB
-                </button>
-
-                <p class="text-center text-sm text-slate-500">
+                <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 font-bold hover:scale-[1.01] transition-all mt-4">Login Now</button>
+                <p class="text-center text-sm text-slate-500 mt-4">
                     <span id="toggle-msg">අලුත් ගිණුමක් අවශ්‍යද?</span>
-                    <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold ml-1 hover:underline">Register</button>
+                    <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold ml-1">Register</button>
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- 2. MAIN HUB -->
+    <!-- 2. MAIN DASHBOARD -->
     <div id="main-hub" class="hidden">
-        <nav class="fixed bottom-0 left-0 w-full md:left-0 md:top-0 md:w-24 md:h-full bg-slate-950/80 backdrop-blur-md border-t md:border-r border-white/5 flex md:flex-col justify-around items-center p-5 z-50">
-            <button onclick="showSection('home')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-th-large"></i></button>
-            <button onclick="showSection('chat')" class="text-2xl hover:text-cyan-400 transition"><i class="fas fa-comment-dots"></i></button>
-            <button onclick="firebase.auth().signOut()" class="text-2xl hover:text-red-400 transition"><i class="fas fa-sign-out-alt"></i></button>
+        <nav class="fixed bottom-0 left-0 w-full md:left-0 md:top-0 md:w-20 md:h-full bg-slate-950/80 backdrop-blur-md border-t md:border-r border-white/5 flex md:flex-col justify-around items-center p-4 z-50">
+            <button onclick="showSec('home')" class="p-3 hover:text-cyan-400"><i class="fas fa-home-alt text-xl"></i></button>
+            <button onclick="showSec('study')" class="p-3 hover:text-cyan-400"><i class="fas fa-book text-xl"></i></button>
+            <button onclick="showSec('chat')" class="p-3 hover:text-cyan-400"><i class="fas fa-comment-dots text-xl"></i></button>
+            <button onclick="showSec('profile')" class="p-3 hover:text-cyan-400"><i class="fas fa-user-circle text-xl"></i></button>
         </nav>
 
-        <main class="md:ml-24 p-6 pb-32 max-w-6xl mx-auto">
-            <section id="home-section">
-                <div class="flex flex-col md:flex-row gap-6 mb-10">
-                    <div class="flex-grow">
-                        <h2 class="text-3xl font-bold">Welcome, <span id="user-name" class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Student</span>!</h2>
-                        <p class="text-slate-500 mt-1">අද ඔබේ ඉලක්කය ජය ගැනීමට සූදානම්ද?</p>
+        <main class="md:ml-20 p-6 max-w-6xl mx-auto pb-24">
+            <!-- HOME SECTION -->
+            <section id="sec-home">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                    <div>
+                        <h2 class="text-3xl font-bold">ආයුබෝවන්, <span id="user-display" class="text-cyan-400">Student</span>!</h2>
+                        <p class="text-slate-500">අද අපි ඉගෙන ගන්නේ මොනවද?</p>
                     </div>
-                    <div class="countdown-box p-6 rounded-[2rem] flex gap-6 items-center">
+                    <!-- LIVE COUNTDOWN -->
+                    <div class="glass px-8 py-4 flex gap-6 items-center border-cyan-500/20">
                         <div class="text-center">
-                            <span id="days-count" class="text-4xl font-black block">000</span>
-                            <span class="text-[10px] opacity-70 uppercase font-bold tracking-widest">Days to A/L</span>
+                            <span id="days-count" class="text-4xl font-black block text-cyan-400">000</span>
+                            <span class="text-[10px] font-bold uppercase opacity-50">Days to Exam</span>
                         </div>
-                        <i class="fas fa-hourglass-half text-2xl opacity-50 animate-pulse"></i>
+                        <i class="fas fa-clock text-2xl text-cyan-500/40"></i>
                     </div>
                 </div>
 
+                <!-- STUDY TIPS CARDS -->
+                <h3 class="text-xl font-bold mb-6"><i class="fas fa-lightbulb text-amber-400 mr-2"></i> Today's Study Tips</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-                    <div class="glass p-5 border-l-4 border-violet-500">
-                        <h4 class="font-bold text-violet-400 mb-2">Pomodoro ක්‍රමය</h4>
-                        <p class="text-xs text-slate-400">විනාඩි 25ක් පාඩම් කර විනාඩි 5ක් විවේක ගන්න.</p>
+                    <div class="glass p-6 border-l-4 border-violet-500 hover:bg-white/5 transition">
+                        <h4 class="font-bold mb-2">Pomodoro Technique</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">විනාඩි 25ක් පාඩම් කර විනාඩි 5ක් විවේක ගන්න. මෙය ඔබේ අවධානය ඉහළ නංවයි.</p>
                     </div>
-                    <div class="glass p-5 border-l-4 border-cyan-500">
-                        <h4 class="font-bold text-cyan-400 mb-2">Active Recall</h4>
-                        <p class="text-xs text-slate-400">පාඩම් කළ පසු පොත වසා තමාටම කරුණු කියා දෙන්න.</p>
+                    <div class="glass p-6 border-l-4 border-cyan-500 hover:bg-white/5 transition">
+                        <h4 class="font-bold mb-2">Mind Mapping</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">පාඩම් කරුණු රූප සටහන් ලෙස අඳින්න. මතක තබා ගැනීම පහසු වේ.</p>
                     </div>
-                    <div class="glass p-5 border-l-4 border-emerald-500">
-                        <h4 class="font-bold text-emerald-400 mb-2">ප්‍රශ්න පත්‍ර</h4>
-                        <p class="text-xs text-slate-400">පසුගිය ප්‍රශ්න පත්‍ර සාකච්ඡා කරන්න.</p>
+                    <div class="glass p-6 border-l-4 border-emerald-500 hover:bg-white/5 transition">
+                        <h4 class="font-bold mb-2">Past Papers</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">පසුගිය ප්‍රශ්න පත්‍ර සඳහා කාලය කළමනාකරණය කරමින් පිළිතුරු ලියන්න.</p>
                     </div>
+                </div>
+
+                <!-- ANNOUNCEMENT / AD -->
+                <div class="glass p-8 bg-gradient-to-r from-violet-900/20 to-transparent border-white/10 relative overflow-hidden">
+                    <div class="relative z-10">
+                        <span class="bg-violet-600 px-3 py-1 rounded-full text-[10px] font-bold mb-4 inline-block">ADVERTISEMENT</span>
+                        <h3 class="text-2xl font-bold mb-2">Fast Track MCQ Masterclass</h3>
+                        <p class="text-slate-400 mb-6 max-w-md">විභාගය දක්වා සියලුම Media Studies සහ අනෙකුත් විෂයන්හි MCQ සාකච්ඡා කරන විශේෂ වැඩපිළිවෙළට අදම සම්බන්ධ වන්න.</p>
+                        <button class="bg-white text-slate-950 px-8 py-3 rounded-2xl font-bold text-sm">Join Now</button>
+                    </div>
+                    <i class="fas fa-rocket absolute bottom-[-20px] right-[-20px] text-[150px] opacity-5 -rotate-12"></i>
                 </div>
             </section>
 
-            <section id="chat-section" class="hidden">
-                <div class="glass h-[70vh] flex flex-col p-6">
-                    <h2 class="text-2xl font-bold mb-4">Student Community</h2>
-                    <div id="msg-container" class="flex-grow overflow-y-auto space-y-4 mb-4"></div>
-                    <div class="flex gap-3">
-                        <input type="text" id="msg-input" class="flex-grow glass p-4 rounded-2xl outline-none" placeholder="මෙහි යමක් ලියන්න...">
-                        <button class="bg-violet-600 w-14 h-14 rounded-2xl"><i class="fas fa-paper-plane"></i></button>
+            <!-- CHAT SECTION -->
+            <section id="sec-chat" class="hidden">
+                <div class="glass h-[75vh] flex flex-col">
+                    <div class="p-6 border-b border-white/5 flex justify-between items-center">
+                        <h2 class="text-xl font-bold">Student Community</h2>
+                        <span class="text-xs text-emerald-400 flex items-center gap-2"><div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div> Live</span>
+                    </div>
+                    <div id="chat-box" class="flex-grow p-6 overflow-y-auto space-y-4 text-sm"></div>
+                    <div class="p-4 bg-white/5 flex gap-3">
+                        <input type="text" id="chat-msg" class="flex-grow bg-slate-900 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-cyan-500" placeholder="මෙහි පණිවිඩයක් ලියන්න...">
+                        <button onclick="sendMsg()" class="bg-cyan-600 px-6 rounded-2xl font-bold"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </section>
@@ -157,7 +130,7 @@
     </div>
 
     <script>
-        // --- 1. Firebase Configuration (Updated to your config) ---
+        // --- FIREBASE INITIALIZATION (ඔබේ නව දත්ත) ---
         const firebaseConfig = {
             apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
             authDomain: "al-fast-track-2026.firebaseapp.com",
@@ -168,17 +141,17 @@
             measurementId: "G-BD6R6461YZ"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
+        const rtdb = firebase.database(); // Realtime DB for Chat
 
-        // --- 2. Login/Register Toggle ---
+        // --- AUTH LOGIC ---
         let isLogin = true;
         function toggleAuth() {
             isLogin = !isLogin;
             document.getElementById('reg-name-div').classList.toggle('hidden');
-            document.getElementById('auth-btn').innerText = isLogin ? "LOGIN TO HUB" : "CREATE ACCOUNT";
+            document.getElementById('auth-btn').innerText = isLogin ? "Login Now" : "Create Account";
             document.getElementById('toggle-msg').innerText = isLogin ? "අලුත් ගිණුමක් අවශ්‍යද?" : "දැනටමත් ගිණුමක් තිබේද?";
             document.getElementById('toggle-btn').innerText = isLogin ? "Register" : "Login";
         }
@@ -187,8 +160,6 @@
             const email = document.getElementById('auth-email').value;
             const password = document.getElementById('auth-password').value;
             const name = document.getElementById('reg-name').value;
-
-            if(!email || !password) return alert("Email and Password are required!");
 
             try {
                 if (isLogin) {
@@ -200,36 +171,63 @@
             } catch (err) { alert(err.message); }
         }
 
-        // --- 3. UI Control & Auth Observer ---
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('auth-view').classList.add('hidden');
                 document.getElementById('main-hub').classList.remove('hidden');
-                document.getElementById('user-name').innerText = user.displayName || "Student";
-                startCountdown();
+                document.getElementById('user-display').innerText = user.displayName || "Student";
+                updateCountdown();
+                loadMessages();
             } else {
                 document.getElementById('auth-view').classList.remove('hidden');
                 document.getElementById('main-hub').classList.add('hidden');
             }
         });
 
-        function showSection(sec) {
-            document.getElementById('home-section').classList.add('hidden');
-            document.getElementById('chat-section').classList.add('hidden');
-            document.getElementById(sec + '-section').classList.remove('hidden');
+        // --- UI NAVIGATION ---
+        function showSec(id) {
+            ['home', 'chat'].forEach(s => document.getElementById('sec-' + s).classList.add('hidden'));
+            document.getElementById('sec-' + id).classList.remove('hidden');
         }
 
-        // --- 4. Countdown Timer Logic ---
-        function startCountdown() {
-            const examDate = new Date("August 10, 2026").getTime();
-            const update = () => {
-                const now = new Date().getTime();
-                const diff = examDate - now;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('days-count').innerText = days < 0 ? "0" : days.toString().padStart(3, '0');
-            };
-            update();
-            setInterval(update, 1000 * 60 * 60); // Update every hour
+        // --- COUNTDOWN LOGIC ---
+        function updateCountdown() {
+            const target = new Date("August 10, 2026").getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('days-count').innerText = days > 0 ? days : "0";
+        }
+
+        // --- CHAT LOGIC ---
+        function sendMsg() {
+            const input = document.getElementById('chat-msg');
+            if (input.value.trim() === "") return;
+            rtdb.ref('global_chat').push({
+                user: auth.currentUser.displayName || "Anonymous",
+                text: input.value,
+                time: Date.now()
+            });
+            input.value = "";
+        }
+
+        function loadMessages() {
+            rtdb.ref('global_chat').limitToLast(30).on('value', snap => {
+                const box = document.getElementById('chat-box');
+                box.innerHTML = "";
+                snap.forEach(child => {
+                    const m = child.val();
+                    const isMe = m.user === auth.currentUser.displayName;
+                    box.innerHTML += `
+                        <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'}">
+                            <span class="text-[10px] text-slate-500 mb-1 ml-1">${m.user}</span>
+                            <div class="px-4 py-2 rounded-2xl ${isMe ? 'bg-violet-600' : 'bg-white/10'} max-w-[80%]">
+                                ${m.text}
+                            </div>
+                        </div>`;
+                });
+                box.scrollTop = box.scrollHeight;
+            });
         }
     </script>
 </body>
