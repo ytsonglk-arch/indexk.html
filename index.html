@@ -57,7 +57,7 @@
                         <p class="text-slate-400 text-sm">අද ඔබේ ඉලක්ක ජයගමු!</p>
                     </div>
                     <div class="glass px-4 py-2 border-cyan-500/20 text-cyan-400 text-sm font-bold animate-pulse">
-                        2026 A/L වලට තව <span id="days-count">0</span> දින
+                        2026 A/L වලට තව <span id="days-count">0</span> දිනයි
                     </div>
                 </header>
 
@@ -68,15 +68,15 @@
                             <div class="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-camera text-cyan-400"></i></div>
                             <p class="text-sm font-semibold">Media</p>
                         </div>
-                        <div onclick="openSubject('Buddhist Civillization')" class="subject-card p-6 text-center cursor-pointer">
+                        <div onclick="openSubject('History')" class="subject-card p-6 text-center cursor-pointer">
                             <div class="w-12 h-12 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-landmark text-orange-400"></i></div>
                             <p class="text-sm font-semibold">History</p>
                         </div>
-                        <div onclick="openSubject('Political')" class="subject-card p-6 text-center cursor-pointer">
+                        <div onclick="openSubject('Sinhala')" class="subject-card p-6 text-center cursor-pointer">
                             <div class="w-12 h-12 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-book text-pink-400"></i></div>
                             <p class="text-sm font-semibold">Sinhala</p>
                         </div>
-                        <div onclick="openSubject('Sinhala')" class="subject-card p-6 text-center cursor-pointer">
+                        <div onclick="openSubject('Political')" class="subject-card p-6 text-center cursor-pointer">
                             <div class="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-balance-scale text-blue-400"></i></div>
                             <p class="text-sm font-semibold">Political</p>
                         </div>
@@ -84,7 +84,7 @@
                             <div class="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-leaf text-green-400"></i></div>
                             <p class="text-sm font-semibold">Agri</p>
                         </div>
-                        <div onclick="openSubject('History')" class="subject-card p-6 text-center cursor-pointer">
+                        <div onclick="openSubject('BC')" class="subject-card p-6 text-center cursor-pointer">
                             <div class="w-12 h-12 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-dharmachakra text-yellow-400"></i></div>
                             <p class="text-sm font-semibold">BC</p>
                         </div>
@@ -180,97 +180,62 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // ==========================================
-        // QUIZ DATA (5 Questions per Subject)
-        // ==========================================
+        // QUIZ DATA
         const subjectPapers = {
-            'Media': {
-                'Media Theory Unit 01': [
-                    {q: "සන්නිවේදන ක්‍රියාවලියක මූලිකාංග ගණන කීයද?", a: ["4", "5", "6", "3"], c: 1},
-                    {q: "ප්‍රථම සිංහල පුවත්පත ලෙස සැලකෙන්නේ?", a: ["ලංකා ලෝකය", "ලක්මිණි පහන", "ඥානාර්ථ ප්‍රදීපය", "සිළුමිණ"], c: 1},
-                    {q: "ගෝලීය ගම්මානය (Global Village) සංකල්පය ඉදිරිපත් කළේ?", a: ["ඇරිස්ටෝටල්", "මාර්ෂල් මැක්ලුහන්", "විල්බර් ශ්‍රාම්", "ලැස්වෙල්"], c: 1},
-                    {q: "පුවත්පතක හදවත ලෙස හඳුන්වන්නේ?", a: ["ප්‍රධාන පුවත", "කර්තෘ වැකිය", "ඡායාරූප", "දැන්වීම්"], c: 1},
-                    {q: "ස්වයං පුද්ගල සන්නිවේදනය යනු?", a: ["තමා සමඟ කරන සන්නිවේදනය", "දෙදෙනෙකු අතර සන්නිවේදනය", "සමූහයක් අතර සන්නිවේදනය", "තාක්ෂණික සන්නිවේදනය"], c: 0}
-                ]
-            },
-            'Buddhist Civillization': {
-                'Buddhist Civillization Paper': [
-                    {q: "මහාවංශය රචනා කරන ලද්දේ කවුරුන් විසින්ද?", a: ["මහානාම හිමි", "මිහිඳු හිමි", "තිස්ස හිමි", "මහසෙන් රජු"], c: 0},
-                    {q: "ලක්දිව ප්‍රථම අගනුවර වූයේ?", a: ["පොළොන්නරුව", "තම්බපණ්ණිය", "අනුරාධපුරය", "විජිතපුරය"], c: 2},
-                    {q: "සිගිරිය නිර්මාණය කළ පාලකයා කවුද?", a: ["ධාතුසේන", "1 වන කාශ්‍යප", "මුගලන්", "මහාසෙන්"], c: 1},
-                    {q: "වැවයි දාගැබයි සංකල්පය මුලින්ම ඉදිරිපත් කළ රජු?", a: ["පණ්ඩුකාභය", "පරාක්‍රමබාහු", "දේවානම්පියතිස්ස", "ධාතුසේන"], c: 2},
-                    {q: "පෘතුගීසින් ලංකාවට පැමිණි වර්ෂය?", a: ["1505", "1602", "1796", "1815"], c: 0}
-                ]
-            },
-            'Political': {
-                'political Paper': [
-                    {q: "ගුත්තිල කාව්‍යයේ කර්තෘ කවුද?", a: ["වෑත්තෑවේ හිමි", "තොටගමුවේ හිමි", "වීදාගම හිමි", "මහානාම හිමි"], c: 0},
-                    {q: "සිංහල හෝඩියේ ප්‍රාණාක්ෂර (ස්වර) ගණන කීයද?", a: ["12", "18", "20", "16"], c: 1},
-                    {q: "මනමේ නාට්‍යයේ නිර්මාණකරුවා කවුද?", a: ["එදිරිවීර සරච්චන්ද්‍ර", "මාර්ටින් වික්‍රමසිංහ", "ජයන්ත චන්ද්‍රසිරි", "මහින්ද ප්‍රසාද්"], c: 0},
-                    {q: "සිංහල නවකතාවේ පියා ලෙස සැලකෙන්නේ?", a: ["පියදාස සිරිසේන", "මාර්ටින් වික්‍රමසිංහ", "ගුණදාස අමරසේකර", "මුනිදාස කුමාරතුංග"], c: 0},
-                    {q: "අමිශ්‍ර සිංහල හෝඩියේ අක්ෂර ගණන?", a: ["30", "32", "54", "60"], c: 0}
-                ]
-            },
-            'Sinhala': {
-                'Government Paper': [
-                    {q: "දේශපාලන විද්‍යාවේ පියා ලෙස සැලකෙන්නේ?", a: ["ප්ලේටෝ", "සොක්‍රටීස්", "ඇරිස්ටෝටල්", "මැකියාවෙලි"], c: 2},
-                    {q: "ප්‍රජාතන්ත්‍රවාදය යන පදය මුලින්ම භාවිත කළේ?", a: ["ග්‍රීකයන්", "රෝමවරුන්", "ඉන්දියානුවන්", "ඉංග්‍රීසින්"], c: 0},
-                    {q: "රාජ්‍යයක මූලිකාංග ගණන කීයද?", a: ["3", "4", "5", "6"], c: 1},
-                    {q: "ලංකාවේ දැනට පවතින ව්‍යවස්ථාව හඳුන්වා දුන් වර්ෂය?", a: ["1948", "1972", "1978", "2000"], c: 2},
-                    {q: "සර්වජන ඡන්ද බලය ලංකාවට ලැබුණේ කිනම් වර්ෂයකදීද?", a: ["1931", "1948", "1956", "1977"], c: 0}
-                ]
-            },
-            'Agri': {
-                'Agricultural Science': [
-                    {q: "ලංකාවේ ප්‍රධානතම අපනයන වගාව කුමක්ද?", a: ["තේ", "රබර්", "පොල්", "වී"], c: 0},
-                    {q: "පසක සාරවත් බව තීරණය කරන ප්‍රධාන සාධකය?", a: ["ජලය", "කාබනික ද්‍රව්‍ය", "වයනය", "වර්ණය"], c: 1},
-                    {q: "හරිතාගාර වායුවක් ලෙස සැලකෙන්නේ?", a: ["ඔක්සිජන්", "නයිට්‍රජන්", "කාබන්ඩයොක්සයිඩ්", "හීලියම්"], c: 2},
-                    {q: "පලිබෝධ පාලනයේදී භාවිතා වන ජීව විද්‍යාත්මක ක්‍රමය කුමක්ද?", a: ["කෘමිනාශක", "ස්වභාවික සතුරන් යොදාගැනීම", "අතින් ඇල්ලීම", "පොළොව කෙටීම"], c: 1},
-                    {q: "ශාකයක ප්‍රභාසංශ්ලේෂණය සිදුවන ප්‍රධාන ස්ථානය?", a: ["මුල", "පත්‍රය", "කඳ", "මල"], c: 1}
-                ]
-            },
-            'History': {
-                'Histry': [
-                    {q: "පළමු ධර්ම සංගායනාව පැවැත්වූයේ කොහේද?", a: ["රජගහ නුවර", "වෛශාලී නුවර", "පැළලුප් නුවර", "මිහින්තලය"], c: 0},
-                    {q: "ලක්දිව ප්‍රථම ස්තූපය කුමක්ද?", a: ["රුවන්වැලිසෑය", "ථූපාරාමය", "මිරිසවැටිය", "අභයගිරිය"], c: 1},
-                    {q: "බුදුරදුන් උපත ලැබුවේ කිනම් ස්ථානයකදීද?", a: ["ලුම්බිණිය", "කුසිනාරාව", "බුද්ධගයාව", "ඉසිපතනය"], c: 0},
-                    {q: "කුල භේදය ප්‍රතික්ෂේප කළ බුදු දහමේ එන ප්‍රධාන ඉගැන්වීම?", a: ["කර්ම වාදය", "වසල සූත්‍රය", "පරාභව සූත්‍රය", "මංගල සූත්‍රය"], c: 1},
-                    {q: "සිගාලෝවාද සූත්‍රයට අනුව දකුණු දිසාවෙන් සංකේතවත් වන්නේ?", a: ["මවුපියන්", "ගුරුවරුන්", "මිතුරන්", "අඹුදරුවන්"], c: 1}
-                ]
-            }
+            'Media': { 'Media Theory Unit 01': [
+                {q: "සන්නිවේදන ක්‍රියාවලියක මූලිකාංග ගණන කීයද?", a: ["4", "5", "6", "3"], c: "5"},
+                {q: "ප්‍රථම සිංහල පුවත්පත ලෙස සැලකෙන්නේ?", a: ["ලංකා ලෝකය", "ලක්මිණි පහන", "ඥානාර්ථ ප්‍රදීපය", "සිළුමිණ"], c: "ලක්මිණි පහන"},
+                {q: "ගෝලීය ගම්මානය (Global Village) සංකල්පය ඉදිරිපත් කළේ?", a: ["ඇරිස්ටෝටල්", "මාර්ෂල් මැක්ලුහන්", "විල්බර් ශ්‍රාම්", "ලැස්වෙල්"], c: "මාර්ෂල් මැක්ලුහන්"},
+                {q: "පුවත්පතක හදවත ලෙස හඳුන්වන්නේ?", a: ["ප්‍රධාන පුවත", "කර්තෘ වැකිය", "ඡායාරූප", "දැන්වීම්"], c: "කර්තෘ වැකිය"},
+                {q: "ස්වයං පුද්ගල සන්නිවේදනය යනු?", a: ["තමා සමඟ කරන සන්නිවේදනය", "දෙදෙනෙකු අතර සන්නිවේදනය", "සමූහයක් අතර සන්නිවේදනය", "තාක්ෂණික සන්නිවේදනය"], c: "තමා සමඟ කරන සන්නිවේදනය"}
+            ]},
+            'History': { 'Ancient History Paper': [
+                {q: "මහාවංශය රචනා කරන ලද්දේ කවුරුන් විසින්ද?", a: ["මහානාම හිමි", "මිහිඳු හිමි", "තිස්ස හිමි", "මහසෙන් රජු"], c: "මහානාම හිමි"},
+                {q: "ලක්දිව ප්‍රථම අගනුවර වූයේ?", a: ["පොළොන්නරුව", "තම්බපණ්ණිය", "අනුරාධපුරය", "විජිතපුරය"], c: "අනුරාධපුරය"},
+                {q: "සිගිරිය නිර්මාණය කළ පාලකයා කවුද?", a: ["ධාතුසේන", "1 වන කාශ්‍යප", "මුගලන්", "මහාසෙන්"], c: "1 වන කාශ්‍යප"},
+                {q: "වැවයි දාගැබයි සංකල්පය මුලින්ම ඉදිරිපත් කළ රජු?", a: ["පණ්ඩුකාභය", "පරාක්‍රමබාහු", "දේවානම්පියතිස්ස", "ධාතුසේන"], c: "දේවානම්පියතිස්ස"},
+                {q: "පෘතුගීසින් ලංකාවට පැමිණි වර්ෂය?", a: ["1505", "1602", "1796", "1815"], c: "1505"}
+            ]},
+            'Sinhala': { 'Literature Paper': [
+                {q: "ගුත්තිල කාව්‍යයේ කර්තෘ කවුද?", a: ["වෑත්තෑවේ හිමි", "තොටගමුවේ හිමි", "වීදාගම හිමි", "මහානාම හිමි"], c: "වෑත්තෑවේ හිමි"},
+                {q: "සිංහල හෝඩියේ ප්‍රාණාක්ෂර (ස්වර) ගණන කීයද?", a: ["12", "18", "20", "16"], c: "18"},
+                {q: "මනමේ නාට්‍යයේ නිර්මාණකරුවා කවුද?", a: ["එදිරිවීර සරච්චන්ද්‍ර", "මාර්ටින් වික්‍රමසිංහ", "ජයන්ත චන්ද්‍රසිරි", "මහින්ද ප්‍රසාද්"], c: "එදිරිවීර සරච්චන්ද්‍ර"},
+                {q: "සිංහල නවකතාවේ පියා ලෙස සැලකෙන්නේ?", a: ["පියදාස සිරිසේන", "මාර්ටින් වික්‍රමසිංහ", "ගුණදාස අමරසේකර", "මුනිදාස කුමාරතුංග"], c: "පියදාස සිරිසේන"},
+                {q: "අමිශ්‍ර සිංහල හෝඩියේ අක්ෂර ගණන?", a: ["30", "32", "54", "60"], c: "30"}
+            ]},
+            'Political': { 'Government Paper': [
+                {q: "දේශපාලන විද්‍යාවේ පියා ලෙස සැලකෙන්නේ?", a: ["ප්ලේටෝ", "සොක්‍රටීස්", "ඇරිස්ටෝටල්", "මැකියාවෙලි"], c: "ඇරිස්ටෝටල්"},
+                {q: "ප්‍රජාතන්ත්‍රවාදය යන පදය මුලින්ම භාවිත කළේ?", a: ["ග්‍රීකයන්", "රෝමවරුන්", "ඉන්දියානුවන්", "ඉංග්‍රීසින්"], c: "ග්‍රීකයන්"},
+                {q: "රාජ්‍යයක මූලිකාංග ගණන කීයද?", a: ["3", "4", "5", "6"], c: "4"},
+                {q: "ලංකාවේ දැනට පවතින ව්‍යවස්ථාව හඳුන්වා දුන් වර්ෂය?", a: ["1948", "1972", "1978", "2000"], c: "1978"},
+                {q: "සර්වජන ඡන්ද බලය ලංකාවට ලැබුණේ කිනම් වර්ෂයකදීද?", a: ["1931", "1948", "1956", "1977"], c: "1931"}
+            ]},
+            'Agri': { 'Agricultural Science': [
+                {q: "ලංකාවේ ප්‍රධානතම අපනයන වගාව කුමක්ද?", a: ["තේ", "රබර්", "පොල්", "වී"], c: "තේ"},
+                {q: "පසක සාරවත් බව තීරණය කරන ප්‍රධාන සාධකය?", a: ["ජලය", "කාබනික ද්‍රව්‍ය", "වයනය", "වර්ණය"], c: "කාබනික ද්‍රව්‍ය"},
+                {q: "හරිතාගාර වායුවක් ලෙස සැලකෙන්නේ?", a: ["ඔක්සිජන්", "නයිට්‍රජන්", "කාබන්ඩයොක්සයිඩ්", "හීලියම්"], c: "කාබන්ඩයොක්සයිඩ්"},
+                {q: "පලිබෝධ පාලනයේදී භාවිතා වන ජීව විද්‍යාත්මක ක්‍රමය කුමක්ද?", a: ["කෘමිනාශක", "ස්වභාවික සතුරන් යොදාගැනීම", "අතින් ඇල්ලීම", "පොළොව කෙටීම"], c: "ස්වභාවික සතුරන් යොදාගැනීම"},
+                {q: "ශාකයක ප්‍රභාසංශ්ලේෂණය සිදුවන ප්‍රධාන ස්ථානය?", a: ["මුල", "පත්‍රය", "කඳ", "මල"], c: "පත්‍රය"}
+            ]},
+            'BC': { 'Buddhist Civilization': [
+                {q: "පළමු ධර්ම සංගායනාව පැවැත්වූයේ කොහේද?", a: ["රජගහ නුවර", "වෛශාලී නුවර", "පැළලුප් නුවර", "මිහින්තලය"], c: "රජගහ නුවර"},
+                {q: "ලක්දිව ප්‍රථම ස්තූපය කුමක්ද?", a: ["රුවන්වැලිසෑය", "ථූපාරාමය", "මිරිසවැටිය", "අභයගිරිය"], c: "ථූපාරාමය"},
+                {q: "බුදුරදුන් උපත ලැබුවේ කිනම් ස්ථානයකදීද?", a: ["ලුම්බිණිය", "කුසිනාරාව", "බුද්ධගයාව", "ඉසිපතනය"], c: "ලුම්බිණිය"},
+                {q: "කුල භේදය ප්‍රතික්ෂේප කළ බුදු දහමේ එන ප්‍රධාන ඉගැන්වීම?", a: ["කර්ම වාදය", "වසල සූත්‍රය", "පරාභව සූත්‍රය", "මංගල සූත්‍රය"], c: "වසල සූත්‍රය"},
+                {q: "සිගාලෝවාද සූත්‍රයට අනුව දකුණු දිසාවෙන් සංකේතවත් වන්නේ?", a: ["මවුපියන්", "ගුරුවරුන්", "මිතුරන්", "අඹුදරුවන්"], c: "ගුරුවරුන්"}
+            ]}
         };
 
-        // ==========================================
-        // SHORT NOTES DATA
-        // ==========================================
         const shortNotesData = {
-            'Media': [
-                {t: "සන්නිවේදනය", d: "තොරතුරු, අදහස් හෝ හැඟීම් එක් මූලාශ්‍රයකින් තවත් ලබන්නෙකු වෙත හුවමාරු වීමයි. මෙය මානව පැවැත්මට අත්‍යවශ්‍ය වේ."},
-                {t: "ජන සන්නිවේදනය", d: "විශාල හා විෂමජාතීය පිරිසක් වෙත එකවර පණිවිඩ යැවීම සඳහා තාක්ෂණික මාධ්‍ය (රූපවාහිනී, පුවත්පත්) භාවිතයයි."}
-            ],
-            'Buddhist Civillization': [
-                {t: "ඓතිහාසික මූලාශ්‍ර", d: "සාහිත්‍ය මූලාශ්‍ර (මහාවංශය, දීපවංශය) සහ පුරාවිද්‍යාත්මක මූලාශ්‍ර (සෙල්ලිපි, කාසි) ලෙස ප්‍රධාන කොටස් දෙකකි."},
-                {t: "අනුරාධපුර යුගය", d: "පණ්ඩුකාභය රජු විසින් අගනුවර කරගත් අතර, ලක්දිව බුදුසමය ස්ථාපනය වූයේ දේවානම්පියතිස්ස රජු කලදීය."}
-            ],
-            'Political': [
-                {t: "සිංහල අක්ෂර මාලාව", d: "සකස් වී ඇත්තේ ස්වර සහ ව්‍යංජන වලිනි. මිශ්‍ර සිංහල හෝඩියේ අක්ෂර 60 ක් පවතින බව කියැවේ."},
-                {t: "ගැමි සාහිත්‍යය", d: "ජන කවි, ජන කතා සහ ජනශ්‍රැති වලින් සමන්විත වූවකි. මෙය මුඛ පරම්පරාගතව පැමිණි එකකි."}
-            ],
-            'Sinhala': [
-                {t: "රාජ්‍යය", d: "භූමිය, ජනගහනය, ආණ්ඩුව සහ පරමාධිපත්‍යය යන මූලිකාංග හතරෙන් සමන්විත ඒකකයකි."},
-                {t: "ප්‍රජාතන්ත්‍රවාදය", d: "ජනතාව විසින්, ජනතාව උදෙසා, ජනතාව මගින් පවත්වාගෙන යනු ලබන පාලන ක්‍රමයයි."}
-            ],
-            'Agri': [
-                {t: "පස", d: "ශාක වර්ධනයට අවශ්‍ය පෝෂණය ලබා දෙන ස්වභාවික සම්පතයි. මෙහි වැදගත්ම කොටස වන්නේ කාබනික ද්‍රව්‍යයි."},
-                {t: "නූතන කෘෂිකර්මය", d: "තාක්ෂණය, නවීන යන්ත්‍රෝපකරණ සහ ජාන ඉංජිනේරු ශිල්පය භාවිතා කරමින් අස්වැන්න වැඩි කර ගැනීමයි."}
-            ],
-            'History': [
-                {t: "බෞද්ධ ශිෂ්ටාචාරය", d: "බුදු දහමේ බලපෑම මත ගොඩනැගුණු කලා, සාරධර්ම, සාහිත්‍ය සහ ආර්ථික රටාව මෙලෙස හැඳින්වේ."},
-                {t: "පංචශීල ප්‍රතිපදාව", d: "බෞද්ධයෙකුගේ මූලික සදාචාරාත්මක පදනමයි. මෙය සමාජ සාමය පවත්වා ගැනීමට උපකාරී වේ."}
-            ]
+            'Media': [{t: "සන්නිවේදනය", d: "තොරතුරු හුවමාරු කර ගැනීමේ ක්‍රියාවලියයි."}, {t: "ජන සන්නිවේදනය", d: "විශාල පිරිසක් වෙත එකවර පණිවිඩ යැවීමයි."}],
+            'History': [{t: "ඓතිහාසික මූලාශ්‍ර", d: "සාහිත්‍ය සහ පුරාවිද්‍යාත්මක මූලාශ්‍ර වේ."}, {t: "අනුරාධපුර යුගය", d: "පණ්ඩුකාභය රජුගෙන් ඇරඹි ප්‍රථම රාජධානියයි."}],
+            'Sinhala': [{t: "සිංහල හෝඩිය", d: "ස්වර සහ ව්‍යංජන වලින් සමන්විත වේ."}, {t: "ගැමි සාහිත්‍යය", d: "ජන කවි, ජන කතා මෙයට අයත්ය."}],
+            'Political': [{t: "රාජ්‍යය", d: "භූමිය, ජනගහනය, ආණ්ඩුව, පරමාධිපත්‍යය මූලිකාංග වේ."}, {t: "ප්‍රජාතන්ත්‍රවාදය", d: "ජනතාවගේ පාලනයයි."}],
+            'Agri': [{t: "පස", d: "ශාක වර්ධනයට අවශ්‍ය පදනමයි."}, {t: "නූතන කෘෂිකර්මය", d: "තාක්ෂණය භාවිතා කර අස්වැන්න වැඩි කිරීමයි."}],
+            'BC': [{t: "බෞද්ධ ශිෂ්ටාචාරය", d: "බුදු දහම පදනම්ව ගොඩනැගුණු සංස්කෘතියයි."}, {t: "පංචශීලය", d: "බෞද්ධයෙකුගේ මූලික හික්මීමයි."}]
         };
 
-        // --- AUTH LOGIC ---
+        // AUTH
         let isLoginMode = true;
         function toggleAuth() {
             isLoginMode = !isLoginMode;
@@ -305,7 +270,7 @@
             }
         });
 
-        // --- CHAT SYSTEM ---
+        // CHAT
         function loadChat() {
             db.collection("chats").orderBy("time", "desc").limit(50).onSnapshot(snap => {
                 const box = document.getElementById('chat-messages');
@@ -317,19 +282,14 @@
                 box.scrollTop = box.scrollHeight;
             });
         }
-
         async function sendChat() {
             const msg = document.getElementById('chat-input').value;
             if(!msg) return;
-            await db.collection("chats").add({
-                user: auth.currentUser.displayName,
-                msg: msg,
-                time: firebase.firestore.FieldValue.serverTimestamp()
-            });
+            await db.collection("chats").add({ user: auth.currentUser.displayName, msg, time: firebase.firestore.FieldValue.serverTimestamp() });
             document.getElementById('chat-input').value = "";
         }
 
-        // --- LEADERBOARD ---
+        // LEADERBOARD (FIXED)
         function loadLeaderboard() {
             db.collection("users").orderBy("points", "desc").limit(10).onSnapshot(snap => {
                 const body = document.getElementById('leaderboard-body');
@@ -337,15 +297,14 @@
                 let r = 1;
                 snap.forEach(doc => {
                     const d = doc.data();
-                    body.innerHTML += `<tr class="border-b border-white/5"><td class="p-5 font-bold">#${r++}</td><td class="p-5">${d.name}</td><td class="p-5 text-cyan-400 font-bold">${d.points}</td></tr>`;
+                    body.innerHTML += `<tr class="border-b border-white/5"><td class="p-5 font-bold">#${r++}</td><td class="p-5">${d.name}</td><td class="p-5 text-cyan-400 font-bold">${d.points || 0}</td></tr>`;
                 });
-            });
+            }, err => console.error("Leaderboard Error:", err));
         }
 
-        // --- NAVIGATION ---
+        // NAVIGATION
         function showSec(id) {
-            const secs = ['home','chat','leaderboard','profile','subject-detail','paper-list','quiz-play','short-notes'];
-            secs.forEach(s => document.getElementById('sec-'+s).classList.add('hidden'));
+            ['home','chat','leaderboard','profile','subject-detail','paper-list','quiz-play','short-notes'].forEach(s => document.getElementById('sec-'+s).classList.add('hidden'));
             document.getElementById('sec-'+id).classList.remove('hidden');
         }
 
@@ -357,7 +316,7 @@
             const cont = document.getElementById('notes-container');
             cont.innerHTML = "";
             (shortNotesData[activeSub] || []).forEach(n => {
-                cont.innerHTML += `<div class="glass p-6"><h4 class="font-bold text-violet-400 mb-2">${n.t}</h4><p class="text-slate-300 text-sm leading-relaxed">${n.d}</p></div>`;
+                cont.innerHTML += `<div class="glass p-6"><h4 class="font-bold text-violet-400 mb-2">${n.t}</h4><p class="text-slate-300 text-sm">${n.d}</p></div>`;
             });
         }
 
@@ -371,22 +330,38 @@
             });
         }
 
+        // QUIZ WITH SHUFFLED ANSWERS
         function startQuiz(pName) {
             showSec('quiz-play');
-            const qList = subjectPapers[activeSub][pName];
+            const qList = JSON.parse(JSON.stringify(subjectPapers[activeSub][pName])); // Deep copy
             let cur = 0; let sc = 0;
+            
             function render() {
                 const d = qList[cur];
+                const correctAnswer = d.c;
+                const shuffledOptions = d.a.sort(() => Math.random() - 0.5); // Shuffle options
+                
                 document.getElementById('quiz-box').innerHTML = `
                     <p class="text-xs text-slate-500 mb-2 uppercase tracking-widest">Question ${cur+1} of ${qList.length}</p>
                     <p class="text-xl font-bold mb-8">${d.q}</p>
-                    <div class="grid gap-4">${d.a.map((o, i) => `<button onclick="check(${i},${d.c})" id="o${i}" class="p-5 glass text-left hover:bg-cyan-500/10 transition">${o}</button>`).join('')}</div>`;
+                    <div class="grid gap-4">${shuffledOptions.map((o, i) => `<button onclick="checkAnswer(this, '${o}', '${correctAnswer}')" class="p-5 glass text-left hover:bg-cyan-500/10 transition">${o}</button>`).join('')}</div>`;
             }
-            window.check = (s, c) => {
-                if(s===c) { document.getElementById('o'+s).classList.add('ans-correct'); sc++; db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10)}); }
-                else { document.getElementById('o'+s).classList.add('ans-wrong'); document.getElementById('o'+c).classList.add('ans-correct'); }
+
+            window.checkAnswer = (btn, selected, correct) => {
+                const allBtns = document.getElementById('quiz-box').querySelectorAll('button');
+                allBtns.forEach(b => b.disabled = true); // Disable after click
+
+                if(selected === correct) {
+                    btn.classList.add('ans-correct');
+                    sc++;
+                    db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10)});
+                } else {
+                    btn.classList.add('ans-wrong');
+                    allBtns.forEach(b => { if(b.innerText === correct) b.classList.add('ans-correct'); });
+                }
                 setTimeout(() => { cur++; if(cur < qList.length) render(); else finish(); }, 1200);
             };
+
             function finish() {
                 document.getElementById('quiz-box').innerHTML = `<div class="text-center"><h2 class="text-3xl font-bold mb-4">සියල්ල අවසන්!</h2><p class="text-cyan-400 text-2xl mb-8">Score: ${sc*10}</p><button onclick="showSec('home')" class="bg-cyan-600 px-10 py-4 rounded-xl font-bold">මුල් පිටුවට</button></div>`;
             }
