@@ -20,10 +20,10 @@
         .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15), transparent 40%), radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1), transparent 40%); z-index: -1; }
         .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer; border-radius: 20px; text-align: center; padding: 20px; }
         .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(6, 182, 212, 0.05); }
-        .coming-soon { opacity: 0.5; cursor: not-allowed; position: relative; }
-        .coming-soon::after { content: "Coming Soon"; position: absolute; top: 10px; right: 10px; font-size: 8px; background: var(--primary); padding: 2px 8px; border-radius: 10px; color: white; font-weight: bold; text-transform: uppercase; }
         .ans-correct { background: rgba(16, 185, 129, 0.2) !important; border-color: #10b981 !important; color: #10b981; }
         .ans-wrong { background: rgba(239, 68, 68, 0.2) !important; border-color: #ef4444 !important; color: #ef4444; }
+        .paper-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: 0.2s; }
+        .paper-btn:hover { background: var(--primary); border-color: white; }
     </style>
 </head>
 <body>
@@ -36,7 +36,7 @@
             <input type="email" id="auth-email" placeholder="Email" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-4">
             <input type="password" id="auth-password" placeholder="Password" class="w-full p-4 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-cyan-500 mb-6">
             <button onclick="handleAuth()" id="auth-btn" class="w-full py-4 rounded-xl bg-violet-600 font-bold hover:bg-violet-700 transition">Login</button>
-            <p class="mt-4 text-sm text-slate-500">Don't have an account? <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold">Register</button></p>
+            <p class="mt-4 text-sm text-slate-500">New User? <button onclick="toggleAuth()" id="toggle-btn" class="text-cyan-400 font-bold">Register</button></p>
         </div>
     </div>
 
@@ -59,66 +59,46 @@
                     <h3 class="text-xl font-bold mb-6 flex items-center"><i class="fas fa-graduation-cap text-violet-400 mr-3"></i> Art Stream Hub</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                         <div onclick="openSubject('Media')" class="subject-card"><i class="fas fa-camera text-xl mb-2 text-cyan-400"></i><p class="text-sm font-bold">Media</p></div>
-                        <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2 text-orange-400"></i><p class="text-sm font-bold">BC</p></div>
-                        <div onclick="openSubject('Political')" class="subject-card"><i class="fas fa-balance-scale text-xl mb-2 text-red-400"></i><p class="text-sm font-bold">Political</p></div>
-                        <div onclick="openSubject('History')" class="subject-card"><i class="fas fa-monument text-xl mb-2 text-amber-500"></i><p class="text-sm font-bold">History</p></div>
-                        <div onclick="openSubject('Agri')" class="subject-card"><i class="fas fa-seedling text-xl mb-2 text-emerald-400"></i><p class="text-sm font-bold">Agri</p></div>
+                        <div onclick="openSubject('History')" class="subject-card"><i class="fas fa-monument text-xl mb-2 text-orange-400"></i><p class="text-sm font-bold">History</p></div>
                         <div onclick="openSubject('Sinhala')" class="subject-card"><i class="fas fa-pen-nib text-xl mb-2 text-pink-400"></i><p class="text-sm font-bold">Sinhala</p></div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glass p-6 coming-soon">
-                        <h4 class="font-bold text-lg mb-2">Science Stream</h4>
-                        <p class="text-xs text-slate-500">Biology, Physics, Chemistry coming soon.</p>
-                    </div>
-                    <div class="glass p-6 coming-soon">
-                        <h4 class="font-bold text-lg mb-2">Commerce Stream</h4>
-                        <p class="text-xs text-slate-500">Accounting, Econ, BS coming soon.</p>
-                    </div>
-                    <div class="glass p-6 coming-soon">
-                        <h4 class="font-bold text-lg mb-2">Tech Stream</h4>
-                        <p class="text-xs text-slate-500">SFT, ET, ICT coming soon.</p>
+                        <div onclick="openSubject('Political')" class="subject-card"><i class="fas fa-balance-scale text-xl mb-2 text-red-400"></i><p class="text-sm font-bold">Political</p></div>
+                        <div onclick="openSubject('Agri')" class="subject-card"><i class="fas fa-seedling text-xl mb-2 text-emerald-400"></i><p class="text-sm font-bold">Agri</p></div>
+                        <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2 text-amber-500"></i><p class="text-sm font-bold">BC</p></div>
                     </div>
                 </div>
             </section>
 
             <section id="sec-subject-detail" class="hidden space-y-6">
-                <button onclick="showSec('home')" class="text-slate-500 hover:text-white"><i class="fas fa-arrow-left mr-2"></i> Back to Hub</button>
-                <h2 id="detail-subject-name" class="text-3xl font-black text-cyan-400">Subject Name</h2>
+                <button onclick="showSec('home')" class="text-slate-500 hover:text-white font-bold tracking-widest"><i class="fas fa-arrow-left mr-2"></i> BACK</button>
+                <h2 id="detail-subject-name" class="text-3xl font-black text-cyan-400">Subject</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass p-8 hover:border-cyan-500/50 transition cursor-pointer group" onclick="startSubjectQuiz()">
-                        <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 transition">
-                            <i class="fas fa-file-invoice"></i>
-                        </div>
+                    <div class="glass p-8 cursor-pointer hover:border-cyan-500/50" onclick="showPaperList()">
+                        <i class="fas fa-file-invoice text-3xl mb-4 text-cyan-400"></i>
                         <h3 class="text-xl font-bold">Past Papers MCQ</h3>
-                        <p class="text-sm text-slate-500 mt-2">විභාග මට්ටමේ බහුවරණ ප්‍රශ්න පත්‍ර සඳහා පිළිතුරු සපයා ලකුණු ලබාගන්න.</p>
+                        <p class="text-sm text-slate-500">වසර අනුව පසුගිය විභාග ප්‍රශ්න පත්‍ර තෝරාගන්න.</p>
                     </div>
-
-                    <div class="glass p-8 hover:border-violet-500/50 transition cursor-pointer group" onclick="alert('Short Notes Coming Soon!')">
-                        <div class="w-16 h-16 bg-violet-500/10 rounded-2xl flex items-center justify-center text-violet-400 text-2xl mb-4 group-hover:scale-110 transition">
-                            <i class="fas fa-sticky-note"></i>
-                        </div>
-                        <h3 class="text-xl font-bold">Short Notes</h3>
-                        <p class="text-sm text-slate-500 mt-2">පාඩම් මතක තබා ගැනීමට කෙටි සටහන් සහ වැදගත් කරුණු මෙතැනින් බලන්න.</p>
-                    </div>
+                    <div class="glass p-8 opacity-50"><i class="fas fa-sticky-note text-3xl mb-4"></i><h3 class="text-xl font-bold">Short Notes</h3><p class="text-sm">Coming Soon</p></div>
                 </div>
+            </section>
+
+            <section id="sec-paper-list" class="hidden space-y-6">
+                <button onclick="showSec('subject-detail')" class="text-slate-500 hover:text-white font-bold"><i class="fas fa-arrow-left mr-2"></i> BACK</button>
+                <h2 class="text-2xl font-bold">Select Question Paper</h2>
+                <div id="paper-buttons-container" class="grid grid-cols-1 gap-3"></div>
             </section>
 
             <section id="sec-quiz-play" class="hidden">
-                <div class="glass p-8 max-w-2xl mx-auto" id="quiz-container">
-                    <div id="quiz-box"></div>
-                </div>
+                <div class="glass p-8 max-w-2xl mx-auto" id="quiz-box"></div>
             </section>
 
             <section id="sec-quiz" class="hidden space-y-6">
-                <h2 class="text-2xl font-bold"><i class="fas fa-crown text-yellow-500 mr-2"></i> Global Leaderboard</h2>
+                <h2 class="text-2xl font-bold"><i class="fas fa-crown text-yellow-500 mr-2"></i> Leaderboard</h2>
                 <div class="glass p-6" id="leaderboard-list"></div>
             </section>
 
             <section id="sec-chat" class="hidden">
-                <div class="glass h-[65vh] flex flex-col">
+                <div class="glass h-[65vh] flex flex-col overflow-hidden">
                     <div id="chat-box" class="flex-grow p-6 overflow-y-auto space-y-4"></div>
                     <div class="p-4 bg-white/5 flex gap-2">
                         <input type="text" id="chat-msg" class="flex-grow bg-transparent border border-white/10 rounded-xl px-4 outline-none" placeholder="Type message...">
@@ -129,20 +109,20 @@
 
             <section id="sec-profile" class="hidden text-center space-y-6">
                 <div class="glass p-10">
-                    <div id="prof-initial" class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-white">U</div>
+                    <div id="prof-initial" class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold">U</div>
                     <h2 id="prof-name" class="text-2xl font-bold italic">User</h2>
                     <div class="grid grid-cols-2 gap-4 mt-8">
                         <div class="bg-white/5 p-4 rounded-2xl"><span class="block text-xs opacity-50">POINTS</span><span id="res-total-points" class="text-xl font-bold text-yellow-500">0</span></div>
                         <div class="bg-white/5 p-4 rounded-2xl"><span class="block text-xs opacity-50">QUIZZES</span><span id="res-quiz-count" class="text-xl font-bold text-cyan-400">0</span></div>
                     </div>
-                    <button onclick="auth.signOut()" class="w-full mt-8 py-3 bg-red-500/10 text-red-500 rounded-xl font-bold border border-red-500/20">Log Out</button>
+                    <button onclick="auth.signOut()" class="w-full mt-8 py-3 bg-red-500/10 text-red-500 rounded-xl font-bold">Log Out</button>
                 </div>
             </section>
         </main>
     </div>
 
     <script>
-        // FIREBASE CONFIGURATION (මෙහි ඔබේ නව දත්ත ඇතුළත් කරන්න)
+        // --- CONFIGURATION ---
         const firebaseConfig = {
             apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
             authDomain: "al-fast-track-2026.firebaseapp.com",
@@ -156,93 +136,163 @@
         const auth = firebase.auth();
         const rtdb = firebase.database();
 
+        // --- QUESTION DATA (5 QUESTIONS EACH) ---
+        const subjectPapers = {
+            'Media': {
+                '2023 (2024) AL Media I': [
+                    {q:"සංදේශයක අන්තර්ගතය අවබෝධ කර ගැනීමේ ක්‍රියාවලිය,", a:["ආකේතකරණයයි.","විකේතකරණයයි.","සංජානනයයි.","ශ්‍රවණයයි."], c:1},
+                    {q:"ස්ව සංකල්පය ගොඩනැගීමට උපකාරී වන සන්නිවේදන වර්ගය?", a:["අන්තර්වර්තී පුද්ගල","අන්තර් පුද්ගල","දෘශ්‍ය","ජනසන්නිවේදනය"], c:0},
+                    {q:"පුවත්පතක හදවත ලෙස හඳුන්වන්නේ කුමක්ද?", a:["ශීර්ෂ පාඨය","කර්තෘ වැකිය","ඡායාරූප","දැන්වීම්"], c:1},
+                    {q:"ලෝකයේ ප්‍රථම පුවත්පත බිහි වූයේ කොහේද?", a:["ඇමරිකාව","එංගලන්තය","ජර්මනිය","චීනය"], c:2},
+                    {q:"ශ්‍රී ලංකා රූපවාහිනී සංස්ථාව ආරම්භ වූ වසර?", a:["1979","1982","1985","1990"], c:1}
+                ]
+            },
+            'History': {
+                '2022 AL History I': [
+                    {q:"ලංකාවේ මුල්ම අගනුවර වූයේ?", a:["අනුරාධපුරය","තම්බපණ්ණිය","පොළොන්නරුව","පඬුවස්නුවර"], c:1},
+                    {q:"මහාවංශයේ ප්‍රධාන කතුවරයා?", a:["මහානාම හිමි","තිස්ස හිමි","මිහිඳු හිමි","මොග්ගලීපුත්ත තිස්ස හිමි"], c:0},
+                    {q:"රජරට වැව් පද්ධතියේ නිර්මාතෘ ලෙස සැලකෙන්නේ?", a:["පරාක්‍රමබාහු රජු","ධාතුසේන රජු","මහසෙන් රජු","පණ්ඩුකාභය රජු"], c:3},
+                    {q:"විජය කුමරු ලංකාවට පැමිණි දිනය?", a:["පසළොස්වක පෝය දින","බුදුන් පිරිනිවන් පෑ දින","වැසි දිනෙක","සූර්යග්‍රහණ දිනෙක"], c:1},
+                    {q:"පෘතුගීසින් ලංකාවට පැමිණියේ කිනම් වසරකද?", a:["1505","1602","1796","1498"], c:0}
+                ]
+            },
+            'BC': {
+                '2023 AL BC I': [
+                    {q:"කුලවාදය තහවුරු කිරීමට බ්‍රාහ්මණයන් ඉදිරිපත් කළ ඉගැන්වීම?", a:["වර්ණ ධර්ම","ස්ව ධර්ම","යාග සංකල්පය","ආශ්‍රම ධර්ම"], c:0},
+                    {q:"පළමු ධර්ම සංගායනාව පැවැත්වූයේ?", a:["රජගහ නුවර","වෛශාලී නුවර","පැළලුප් නුවර","මිහින්තලය"], c:0},
+                    {q:"ලක්දිව ප්‍රථම ස්තූපය?", a:["ථූපාරාමය","රුවන්වැලිසෑය","මිිරිසවැටිය","අභයගිරිය"], c:0},
+                    {q:"සිගාලෝවාද සූත්‍රයට අනුව දකුණු දිසාව?", a:["මවුපියන්","ගුරුවරුන්","මිතුරන්","අඹුදරුවන්"], c:1},
+                    {q:"බුදුරදුන් උපන් ස්ථානය?", a:["ලුම්බිණිය","කුසිනාරාව","බුද්ධගයාව","ඉසිපතනය"], c:0}
+                ]
+            },
+            'Political': {
+                '2023 AL Political I': [
+                    {q:"දේශපාලන විද්‍යාවේ පියා?", a:["සොක්‍රටීස්","ප්ලේටෝ","ඇරිස්ටෝටල්","මැකියාවෙලි"], c:2},
+                    {q:"ප්‍රජාතන්ත්‍රවාදයේ මුල්ම හැඩය බිහිවූයේ?", a:["ග්‍රීසියේ","රෝමයේ","ඉන්දියාවේ","එංගලන්තයේ"], c:0},
+                    {q:"ලංකාවේ දැනට පවතින ව්‍යවස්ථාව හඳුන්වා දුන් වසර?", a:["1948","1972","1978","2000"], c:2},
+                    {q:"රාජ්‍යයක මූලිකාංග ගණන?", a:["3","4","5","6"], c:1},
+                    {q:"සර්වජන ඡන්ද බලය ලංකාවට ලැබුණේ?", a:["1931","1948","1956","1977"], c:0}
+                ]
+            },
+            'Agri': {
+                '2023 AL Agri I': [
+                    {q:"පසක සාරවත් බව තීරණය කරන ප්‍රධාන සාධකය?", a:["ජලය","කාබනික ද්‍රව්‍ය","සුළඟ","හිරු එළිය"], c:1},
+                    {q:"ලංකාවේ ප්‍රධානතම වගාව?", a:["තේ","රබර්","වී","පොල්"], c:2},
+                    {q:"හරිතාගාර ආචරණයට බලපාන වායුව?", a:["CO2","ඔක්සිජන්","නයිට්‍රජන්","හීලියම්"], c:0},
+                    {q:"පලිබෝධ පාලනයට යොදාගන්නා ජීවී ක්‍රමය?", a:["රසායනික","ජීව විද්‍යාත්මක","යාන්ත්‍රික","ස්වභාවික"], c:1},
+                    {q:"බද්ධ කිරීම යනු?", a:["ලිංගික ප්‍රජනනය","අලිංගික ප්‍රජනනය","බීජ වැවීම","පැළ සිටුවීම"], c:1}
+                ]
+            },
+            'Sinhala': {
+                '2023 AL Sinhala I': [
+                    {q:"සිංහල හෝඩියේ මුළු අක්ෂර ගණන?", a:["54","60","36","20"], c:1},
+                    {q:"ගුත්තිල කාව්‍යයේ කර්තෘ?", a:["වෑත්තෑවේ හිමි","තොටගමුවේ හිමි","වීදාගම හිමි","ශ්‍රී රාහුල හිමි"], c:0},
+                    {q:"නූතන සිංහල නවකතාවේ පියා?", a:["මාර්ටින් වික්‍රමසිංහ","පියදාස සිරිසේන","ගුණදාස අමරසේකර","එදිරිවීර සරච්චන්ද්‍ර"], c:1},
+                    {q:"මනමේ නාට්‍යයේ නිර්මාණකරු?", a:["සරච්චන්ද්‍ර","වික්‍රමසිංහ","සුගතපාල ද සිල්වා","හෙන්රි ජයසේන"], c:0},
+                    {q:"සන්ධි යනු?", a:["අකුරු වෙන් කිරීම","අකුරු එකතු වීම","වචන ලිවීම","ගාථා කීම"], c:1}
+                ]
+            }
+        };
+
         let activeSubject = "";
         let sessionCorrect = 0, sessionWrong = 0, canClick = true;
 
-        const subjectQuizzes = {
-            'Media': [{q:"පුවත්පතක හදවත ලෙස හඳුන්වන්නේ?", a:["කර්තෘ වැකිය","ශීර්ෂ පාඨය","වෙළඳ දැන්වීම්","පින්තූර"], c:0}],
-            'History': [{q:"පළමු රාජ්‍ය ලේඛනය ලෙස සැලකෙන්නේ?", a:["මහාවංශය","දීපවංශය","පූජාවලිය","බුත්සරණ"], c:0}]
-        };
+        // AUTH & NAVIGATION
+        function toggleAuth() { 
+            const isLogin = document.getElementById('auth-btn').innerText === "Login";
+            document.getElementById('reg-name-div').classList.toggle('hidden', isLogin);
+            document.getElementById('auth-btn').innerText = isLogin ? "Register" : "Login";
+            document.getElementById('toggle-btn').innerText = isLogin ? "Login" : "Register";
+        }
 
-        // UI & AUTH LOGIC
-        let isLogin = true;
-        function toggleAuth() { isLogin = !isLogin; document.getElementById('reg-name-div').classList.toggle('hidden'); document.getElementById('auth-btn').innerText = isLogin ? "Login" : "Register"; }
-        
         async function handleAuth() {
-            const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value, n = document.getElementById('reg-name').value;
-            try { if (isLogin) await auth.signInWithEmailAndPassword(e, p); else { const res = await auth.createUserWithEmailAndPassword(e, p); await res.user.updateProfile({ displayName: n }); } } catch (err) { alert(err.message); }
+            const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value;
+            try { if(document.getElementById('auth-btn').innerText === "Login") await auth.signInWithEmailAndPassword(e, p); 
+                  else { const res = await auth.createUserWithEmailAndPassword(e, p); await res.user.updateProfile({displayName: document.getElementById('reg-name').value}); }
+            } catch(err) { alert(err.message); }
         }
 
         auth.onAuthStateChanged(user => {
-            if (user) { 
-                document.getElementById('auth-view').classList.add('hidden'); 
-                document.getElementById('main-hub').classList.remove('hidden'); 
-                document.getElementById('user-display').innerText = user.displayName;
-                updateCountdown(); loadMessages();
-            } else { 
-                document.getElementById('auth-view').classList.remove('hidden'); 
-                document.getElementById('main-hub').classList.add('hidden'); 
-            }
+            document.getElementById('auth-view').classList.toggle('hidden', !!user);
+            document.getElementById('main-hub').classList.toggle('hidden', !user);
+            if(user) { document.getElementById('user-display').innerText = user.displayName; updateCountdown(); loadMessages(); }
         });
 
-        // NAVIGATION
         function showSec(id) {
-            ['home','quiz','chat','profile','subject-detail','quiz-play'].forEach(s => document.getElementById('sec-' + s).classList.add('hidden'));
+            ['home','quiz','chat','profile','subject-detail','paper-list','quiz-play'].forEach(s => document.getElementById('sec-' + s).classList.add('hidden'));
             document.getElementById('sec-' + id).classList.remove('hidden');
             if(id === 'quiz') loadLeaderboard();
             if(id === 'profile') updateProfileResults();
         }
 
-        // SUBJECT HANDLER
+        // SUBJECT & PAPER LOGIC
         function openSubject(sub) {
             activeSubject = sub;
             showSec('subject-detail');
             document.getElementById('detail-subject-name').innerText = sub;
         }
 
-        function startSubjectQuiz() {
-            showSec('quiz-play');
-            loadQuiz(activeSubject);
+        function showPaperList() {
+            showSec('paper-list');
+            const container = document.getElementById('paper-buttons-container');
+            container.innerHTML = "";
+            const papers = subjectPapers[activeSubject] || {};
+            
+            Object.keys(papers).forEach(paperName => {
+                const btn = document.createElement('button');
+                btn.className = "paper-btn w-full p-5 rounded-2xl text-left font-bold flex justify-between items-center";
+                btn.innerHTML = `${paperName} <i class="fas fa-play-circle text-cyan-400"></i>`;
+                btn.onclick = () => startPaperQuiz(paperName);
+                container.appendChild(btn);
+            });
         }
 
-        // QUIZ SYSTEM
-        function loadQuiz(sub) {
-            const qBox = document.getElementById('quiz-box'); const qList = subjectQuizzes[sub] || []; let currentQ = 0;
-            sessionCorrect = 0; sessionWrong = 0;
-            if(qList.length === 0) { qBox.innerHTML = "No Questions yet."; return; }
+        function startPaperQuiz(paperName) {
+            showSec('quiz-play');
+            const qList = subjectPapers[activeSubject][paperName];
+            loadQuiz(qList, paperName);
+        }
+
+        function loadQuiz(qList, paperTitle) {
+            const qBox = document.getElementById('quiz-box');
+            let currentQ = 0; sessionCorrect = 0; sessionWrong = 0;
+            
             function renderQ() {
                 canClick = true; const data = qList[currentQ];
-                qBox.innerHTML = `<p class="mb-6 font-bold text-xl">${data.q}</p><div class="grid gap-3">${data.a.map((opt, i) => `<button id="opt-${i}" onclick="checkAns(${i}, ${data.c})" class="p-4 glass text-left rounded-2xl transition hover:border-cyan-500">${opt}</button>`).join('')}</div>`;
+                qBox.innerHTML = `
+                    <h3 class="text-sm text-cyan-400 mb-4">${paperTitle} (${currentQ + 1}/${qList.length})</h3>
+                    <p class="mb-6 font-bold text-xl">${data.q}</p>
+                    <div class="grid gap-3">${data.a.map((opt, i) => `<button id="opt-${i}" onclick="checkAns(${i}, ${data.c})" class="p-4 glass text-left rounded-2xl transition hover:border-cyan-500">${opt}</button>`).join('')}</div>`;
             }
+
             window.checkAns = (sel, cor) => {
                 if(!canClick) return; canClick = false;
                 const sb = document.getElementById(`opt-${sel}`), cb = document.getElementById(`opt-${cor}`);
                 if(sel === cor) { sb.classList.add('ans-correct'); sessionCorrect++; savePoints(10); } 
                 else { sb.classList.add('ans-wrong'); cb.classList.add('ans-correct'); sessionWrong++; }
-                setTimeout(() => { currentQ++; if(currentQ < qList.length) renderQ(); else showResultBtn(); }, 1200);
+                setTimeout(() => { currentQ++; if(currentQ < qList.length) renderQ(); else showResultBtn(); }, 1000);
             };
             renderQ();
         }
 
         function showResultBtn() {
-            document.getElementById('quiz-box').innerHTML = `<div class="text-center py-10"><i class="fas fa-check-circle text-5xl text-emerald-500 mb-4"></i><h3 class="text-2xl font-bold mb-4">Quiz Finished!</h3><button onclick="showFinalReport()" class="bg-cyan-600 px-8 py-3 rounded-xl font-bold">ප්‍රතිඵල බලන්න</button></div>`;
+            document.getElementById('quiz-box').innerHTML = `<div class="text-center py-10"><i class="fas fa-check-circle text-5xl text-emerald-500 mb-4"></i><h3 class="text-2xl font-bold mb-4">Paper Finished!</h3><button onclick="showFinalReport()" class="bg-cyan-600 px-8 py-3 rounded-xl font-bold">ප්‍රතිඵල බලන්න</button></div>`;
         }
 
         function showFinalReport() {
-            const totalMarks = (sessionCorrect + sessionWrong) * 10;
             document.getElementById('quiz-box').innerHTML = `
                 <div class="space-y-6 text-center">
-                    <h3 class="text-xl font-bold text-cyan-400 italic">ප්‍රතිඵල වාර්තාව - ${activeSubject}</h3>
+                    <h3 class="text-xl font-bold text-cyan-400">ප්‍රතිඵල වාර්තාව</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20"><span class="text-emerald-400 font-bold">${sessionCorrect} නිවැරදි</span></div>
-                        <div class="bg-red-500/10 p-4 rounded-xl border border-red-500/20"><span class="text-red-400 font-bold">${sessionWrong} වැරදි</span></div>
+                        <div class="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20 text-emerald-400 font-bold">${sessionCorrect} Correct</div>
+                        <div class="bg-red-500/10 p-4 rounded-xl border border-red-500/20 text-red-400 font-bold">${sessionWrong} Wrong</div>
                     </div>
-                    <div class="glass p-6"><span class="text-xs opacity-50 block uppercase mb-1 tracking-widest">Score</span><span class="text-4xl font-black">${sessionCorrect * 10}</span> / ${totalMarks}</div>
-                    <button onclick="showSec('home')" class="w-full py-4 bg-cyan-600 rounded-2xl font-bold shadow-lg">Done</button>
+                    <div class="glass p-6"><span class="text-xs opacity-50 block mb-1">SCORE</span><span class="text-4xl font-black">${sessionCorrect * 10}</span></div>
+                    <button onclick="showSec('home')" class="w-full py-4 bg-cyan-600 rounded-2xl font-bold">Home</button>
                 </div>`;
         }
 
-        // FIREBASE POINTS & PROFILE
+        // DATABASE HELPERS
         function savePoints(p) {
             const u = auth.currentUser;
             rtdb.ref('users/' + u.uid).transaction(c => {
@@ -262,11 +312,11 @@
             rtdb.ref('leaderboard').orderByChild('score').limitToLast(10).on('value', s => {
                 const l = document.getElementById('leaderboard-list'); l.innerHTML = ""; let ps = [];
                 s.forEach(c => ps.push(c.val()));
-                ps.reverse().forEach((p, i) => { l.innerHTML += `<div class="leaderboard-row"><span>${p.name}</span><span class="text-cyan-400 font-bold">${p.score} pt</span></div>`; });
+                ps.reverse().forEach((p, i) => { l.innerHTML += `<div class="leaderboard-row"><span>${p.name}</span><span class="text-cyan-400 font-bold">${p.score}</span></div>`; });
             });
         }
 
-        // CHAT
+        // MESSAGES
         function sendMsg() {
             const i = document.getElementById('chat-msg'); if(!i.value.trim()) return;
             rtdb.ref('global_chat').push({name: auth.currentUser.displayName, text: i.value}); i.value = "";
