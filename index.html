@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A/L Fast Track 2026 | Ultimate Hub</title>
+    <title>A/L Fast Track 2026 | Professional Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -17,19 +16,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Noto+Sans+Sinhala:wght@400;700&display=swap');
         :root { --primary: #8b5cf6; --accent: #06b6d4; --bg: #020617; }
         body { background-color: var(--bg); color: white; font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 28px; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
         .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15), transparent 40%), radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.1), transparent 40%); z-index: -1; }
+        .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer; border-radius: 20px; text-align: center; padding: 20px; }
+        .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(6, 182, 212, 0.05); }
+        .coming-soon { opacity: 0.5; cursor: not-allowed; position: relative; }
+        .coming-soon::after { content: "Coming Soon"; position: absolute; top: 10px; right: 10px; font-size: 8px; background: var(--primary); padding: 2px 8px; border-radius: 10px; color: white; font-weight: bold; text-transform: uppercase; }
         .ans-correct { background: rgba(16, 185, 129, 0.2) !important; border-color: #10b981 !important; color: #10b981; }
         .ans-wrong { background: rgba(239, 68, 68, 0.2) !important; border-color: #ef4444 !important; color: #ef4444; }
-        .subject-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer; border-radius: 24px; }
-        .subject-card:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(6, 182, 212, 0.05); }
-        .leaderboard-row { background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; padding: 12px 20px; }
     </style>
 </head>
 <body>
     <div class="glow-bg"></div>
 
-    <!-- 1. LOGIN / REGISTER VIEW -->
     <div id="auth-view" class="min-h-screen flex items-center justify-center p-6">
         <div class="glass w-full max-w-[400px] p-8 text-center shadow-2xl">
             <h1 class="text-3xl font-black mb-6 uppercase tracking-tighter text-cyan-400">A/L Fast Track</h1>
@@ -41,94 +40,109 @@
         </div>
     </div>
 
-    <!-- 2. MAIN APP HUB -->
     <div id="main-hub" class="hidden">
         <nav class="fixed bottom-0 left-0 w-full md:top-0 md:w-20 md:h-full bg-slate-950/90 border-t md:border-r border-white/10 flex md:flex-col justify-around items-center p-4 z-50">
-            <button onclick="showSec('home')" class="p-3 hover:text-cyan-400"><i class="fas fa-home text-xl"></i></button>
-            <button onclick="showSec('study')" class="p-3 hover:text-cyan-400"><i class="fas fa-book-open text-xl"></i></button>
+            <button onclick="showSec('home')" class="p-3 hover:text-cyan-400"><i class="fas fa-th-large text-xl"></i></button>
             <button onclick="showSec('quiz')" class="p-3 hover:text-cyan-400"><i class="fas fa-trophy text-xl"></i></button>
-            <button onclick="showSec('chat')" class="p-3 hover:text-cyan-400"><i class="fas fa-comments text-xl"></i></button>
+            <button onclick="showSec('chat')" class="p-3 hover:text-cyan-400"><i class="fas fa-comment-dots text-xl"></i></button>
             <button onclick="showSec('profile')" class="p-3 hover:text-cyan-400"><i class="fas fa-user-circle text-xl"></i></button>
         </nav>
 
-        <main class="md:ml-20 p-6 max-w-5xl mx-auto pb-24">
-            
-            <!-- HOME SECTION -->
-            <section id="sec-home" class="space-y-6">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-2xl font-bold">Welcome, <span id="user-display" class="text-cyan-400">Student</span>!</h2>
-                    <div class="glass px-5 py-2 border-cyan-500/30 text-cyan-400 text-sm font-bold"><span id="days-count">000</span> Days to A/L</div>
+        <main class="md:ml-20 p-6 max-w-6xl mx-auto pb-24">
+            <section id="sec-home" class="space-y-10">
+                <header class="flex justify-between items-center">
+                    <h2 class="text-3xl font-bold">A/L <span class="text-cyan-400">Elite Hub</span></h2>
+                    <div class="glass px-6 py-2 border-cyan-500/30 text-cyan-400 font-bold"><span id="days-count">000</span> Days left</div>
+                </header>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-6 flex items-center"><i class="fas fa-graduation-cap text-violet-400 mr-3"></i> Art Stream Hub</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div onclick="openSubject('Media')" class="subject-card"><i class="fas fa-camera text-xl mb-2 text-cyan-400"></i><p class="text-sm font-bold">Media</p></div>
+                        <div onclick="openSubject('BC')" class="subject-card"><i class="fas fa-dharmachakra text-xl mb-2 text-orange-400"></i><p class="text-sm font-bold">BC</p></div>
+                        <div onclick="openSubject('Political')" class="subject-card"><i class="fas fa-balance-scale text-xl mb-2 text-red-400"></i><p class="text-sm font-bold">Political</p></div>
+                        <div onclick="openSubject('History')" class="subject-card"><i class="fas fa-monument text-xl mb-2 text-amber-500"></i><p class="text-sm font-bold">History</p></div>
+                        <div onclick="openSubject('Agri')" class="subject-card"><i class="fas fa-seedling text-xl mb-2 text-emerald-400"></i><p class="text-sm font-bold">Agri</p></div>
+                        <div onclick="openSubject('Sinhala')" class="subject-card"><i class="fas fa-pen-nib text-xl mb-2 text-pink-400"></i><p class="text-sm font-bold">Sinhala</p></div>
+                    </div>
                 </div>
-                <div class="glass p-8 bg-gradient-to-br from-indigo-900/20 to-transparent">
-                    <h3 class="text-xl font-bold mb-2">Creator Announcement</h3>
-                    <p class="text-slate-400 text-sm">නව ප්‍රශ්න පත්‍ර සහ පාඩම් මාලා දැන් ඇතුළත් කර ඇත. ඔබේ දැනුම පරීක්ෂා කර බලන්න!</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass p-6 coming-soon">
+                        <h4 class="font-bold text-lg mb-2">Science Stream</h4>
+                        <p class="text-xs text-slate-500">Biology, Physics, Chemistry coming soon.</p>
+                    </div>
+                    <div class="glass p-6 coming-soon">
+                        <h4 class="font-bold text-lg mb-2">Commerce Stream</h4>
+                        <p class="text-xs text-slate-500">Accounting, Econ, BS coming soon.</p>
+                    </div>
+                    <div class="glass p-6 coming-soon">
+                        <h4 class="font-bold text-lg mb-2">Tech Stream</h4>
+                        <p class="text-xs text-slate-500">SFT, ET, ICT coming soon.</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- STUDY (ART STREAM) SECTION -->
-            <section id="sec-study" class="hidden space-y-6">
-                <h2 class="text-2xl font-bold">Art Stream Hub</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div onclick="openSubject('Media')" class="subject-card p-6 text-center"><i class="fas fa-camera text-2xl mb-2 text-cyan-400"></i><h4>Media</h4></div>
-                    <div onclick="openSubject('History')" class="subject-card p-6 text-center"><i class="fas fa-monument text-2xl mb-2 text-orange-400"></i><h4>History</h4></div>
-                    <div onclick="openSubject('Sinhala')" class="subject-card p-6 text-center"><i class="fas fa-pen-nib text-2xl mb-2 text-pink-400"></i><h4>Sinhala</h4></div>
-                    <div onclick="openSubject('Political')" class="subject-card p-6 text-center"><i class="fas fa-balance-scale text-2xl mb-2 text-red-400"></i><h4>Political</h4></div>
-                    <div onclick="openSubject('Agri')" class="subject-card p-6 text-center"><i class="fas fa-seedling text-2xl mb-2 text-emerald-400"></i><h4>Agri</h4></div>
-                    <div onclick="openSubject('BC')" class="subject-card p-6 text-center"><i class="fas fa-dharmachakra text-2xl mb-2 text-amber-500"></i><h4>BC</h4></div>
+            <section id="sec-subject-detail" class="hidden space-y-6">
+                <button onclick="showSec('home')" class="text-slate-500 hover:text-white"><i class="fas fa-arrow-left mr-2"></i> Back to Hub</button>
+                <h2 id="detail-subject-name" class="text-3xl font-black text-cyan-400">Subject Name</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass p-8 hover:border-cyan-500/50 transition cursor-pointer group" onclick="startSubjectQuiz()">
+                        <div class="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 transition">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Past Papers MCQ</h3>
+                        <p class="text-sm text-slate-500 mt-2">විභාග මට්ටමේ බහුවරණ ප්‍රශ්න පත්‍ර සඳහා පිළිතුරු සපයා ලකුණු ලබාගන්න.</p>
+                    </div>
+
+                    <div class="glass p-8 hover:border-violet-500/50 transition cursor-pointer group" onclick="alert('Short Notes Coming Soon!')">
+                        <div class="w-16 h-16 bg-violet-500/10 rounded-2xl flex items-center justify-center text-violet-400 text-2xl mb-4 group-hover:scale-110 transition">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Short Notes</h3>
+                        <p class="text-sm text-slate-500 mt-2">පාඩම් මතක තබා ගැනීමට කෙටි සටහන් සහ වැදගත් කරුණු මෙතැනින් බලන්න.</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- QUIZ PLAY VIEW -->
             <section id="sec-quiz-play" class="hidden">
                 <div class="glass p-8 max-w-2xl mx-auto" id="quiz-container">
-                    <div class="flex justify-between mb-6">
-                        <h3 id="current-subject-name" class="text-lg font-bold text-cyan-400">Quiz</h3>
-                    </div>
                     <div id="quiz-box"></div>
                 </div>
             </section>
 
-            <!-- LEADERBOARD SECTION -->
             <section id="sec-quiz" class="hidden space-y-6">
-                <h2 class="text-2xl font-bold"><i class="fas fa-crown text-yellow-500 mr-2"></i> Leaderboard</h2>
+                <h2 class="text-2xl font-bold"><i class="fas fa-crown text-yellow-500 mr-2"></i> Global Leaderboard</h2>
                 <div class="glass p-6" id="leaderboard-list"></div>
             </section>
 
-            <!-- CHAT SECTION -->
             <section id="sec-chat" class="hidden">
-                <div class="glass h-[65vh] flex flex-col overflow-hidden">
+                <div class="glass h-[65vh] flex flex-col">
                     <div id="chat-box" class="flex-grow p-6 overflow-y-auto space-y-4"></div>
                     <div class="p-4 bg-white/5 flex gap-2">
-                        <input type="text" id="chat-msg" class="flex-grow bg-transparent border border-white/10 rounded-xl px-4 outline-none" placeholder="Type here...">
+                        <input type="text" id="chat-msg" class="flex-grow bg-transparent border border-white/10 rounded-xl px-4 outline-none" placeholder="Type message...">
                         <button onclick="sendMsg()" class="bg-cyan-600 w-12 h-12 rounded-xl"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </section>
 
-            <!-- PROFILE SECTION -->
             <section id="sec-profile" class="hidden text-center space-y-6">
                 <div class="glass p-10">
-                    <div id="prof-initial" class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold">U</div>
+                    <div id="prof-initial" class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-white">U</div>
                     <h2 id="prof-name" class="text-2xl font-bold italic">User</h2>
                     <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div class="bg-white/5 p-4 rounded-2xl">
-                            <span class="block text-xs opacity-50">TOTAL POINTS</span>
-                            <span id="res-total-points" class="text-xl font-bold text-yellow-500">0</span>
-                        </div>
-                        <div class="bg-white/5 p-4 rounded-2xl">
-                            <span class="block text-xs opacity-50">QUIZZES DONE</span>
-                            <span id="res-quiz-count" class="text-xl font-bold text-cyan-400">0</span>
-                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl"><span class="block text-xs opacity-50">POINTS</span><span id="res-total-points" class="text-xl font-bold text-yellow-500">0</span></div>
+                        <div class="bg-white/5 p-4 rounded-2xl"><span class="block text-xs opacity-50">QUIZZES</span><span id="res-quiz-count" class="text-xl font-bold text-cyan-400">0</span></div>
                     </div>
                     <button onclick="auth.signOut()" class="w-full mt-8 py-3 bg-red-500/10 text-red-500 rounded-xl font-bold border border-red-500/20">Log Out</button>
                 </div>
             </section>
-
         </main>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
+        // FIREBASE CONFIGURATION (මෙහි ඔබේ නව දත්ත ඇතුළත් කරන්න)
         const firebaseConfig = {
             apiKey: "AIzaSyBcq1z__F9LYZeKTiNGXkqsd3sVHJqfsEM",
             authDomain: "al-fast-track-2026.firebaseapp.com",
@@ -142,44 +156,63 @@
         const auth = firebase.auth();
         const rtdb = firebase.database();
 
-        const subjectQuizzes = {
-            'Media': [{q:"පුවත්පතක මූලිකාංගයක් නොවන්නේ?", a:["ශීර්ෂ පාඨය","Lead","සිරස්තලය","කැමරාව"], c:3}, {q:"සන්නිවේදනය යනු කුමක්ද?", a:["තොරතුරු හුවමාරුව","කෑම පිසීම","නිදා ගැනීම","ඇවිදීම"], c:0}],
-            'History': [{q:"මහාවංශය ලියූ හිමිනම?", a:["මහානාම","මිහිඳු","අසෝක","තිස්ස"], c:0}],
-            'Sinhala': [{q:"සිංහල හෝඩියේ ස්වර අක්ෂර ගණන?", a:["10","12","16","18"], c:2}]
-        };
-
+        let activeSubject = "";
         let sessionCorrect = 0, sessionWrong = 0, canClick = true;
 
-        // --- AUTH ---
+        const subjectQuizzes = {
+            'Media': [{q:"පුවත්පතක හදවත ලෙස හඳුන්වන්නේ?", a:["කර්තෘ වැකිය","ශීර්ෂ පාඨය","වෙළඳ දැන්වීම්","පින්තූර"], c:0}],
+            'History': [{q:"පළමු රාජ්‍ය ලේඛනය ලෙස සැලකෙන්නේ?", a:["මහාවංශය","දීපවංශය","පූජාවලිය","බුත්සරණ"], c:0}]
+        };
+
+        // UI & AUTH LOGIC
         let isLogin = true;
         function toggleAuth() { isLogin = !isLogin; document.getElementById('reg-name-div').classList.toggle('hidden'); document.getElementById('auth-btn').innerText = isLogin ? "Login" : "Register"; }
+        
         async function handleAuth() {
             const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value, n = document.getElementById('reg-name').value;
             try { if (isLogin) await auth.signInWithEmailAndPassword(e, p); else { const res = await auth.createUserWithEmailAndPassword(e, p); await res.user.updateProfile({ displayName: n }); } } catch (err) { alert(err.message); }
         }
+
         auth.onAuthStateChanged(user => {
-            const av = document.getElementById('auth-view'), mh = document.getElementById('main-hub');
-            if (user) { av.classList.add('hidden'); mh.classList.remove('hidden'); document.getElementById('user-display').innerText = user.displayName; updateCountdown(); loadMessages(); }
-            else { av.classList.remove('hidden'); mh.classList.add('hidden'); }
+            if (user) { 
+                document.getElementById('auth-view').classList.add('hidden'); 
+                document.getElementById('main-hub').classList.remove('hidden'); 
+                document.getElementById('user-display').innerText = user.displayName;
+                updateCountdown(); loadMessages();
+            } else { 
+                document.getElementById('auth-view').classList.remove('hidden'); 
+                document.getElementById('main-hub').classList.add('hidden'); 
+            }
         });
 
-        // --- NAVIGATION ---
+        // NAVIGATION
         function showSec(id) {
-            ['home','study','quiz','chat','profile','quiz-play'].forEach(s => document.getElementById('sec-' + s).classList.add('hidden'));
+            ['home','quiz','chat','profile','subject-detail','quiz-play'].forEach(s => document.getElementById('sec-' + s).classList.add('hidden'));
             document.getElementById('sec-' + id).classList.remove('hidden');
             if(id === 'quiz') loadLeaderboard();
             if(id === 'profile') updateProfileResults();
         }
 
-        // --- QUIZ LOGIC ---
-        function openSubject(sub) { showSec('quiz-play'); document.getElementById('current-subject-name').innerText = sub; loadQuiz(sub); }
+        // SUBJECT HANDLER
+        function openSubject(sub) {
+            activeSubject = sub;
+            showSec('subject-detail');
+            document.getElementById('detail-subject-name').innerText = sub;
+        }
+
+        function startSubjectQuiz() {
+            showSec('quiz-play');
+            loadQuiz(activeSubject);
+        }
+
+        // QUIZ SYSTEM
         function loadQuiz(sub) {
             const qBox = document.getElementById('quiz-box'); const qList = subjectQuizzes[sub] || []; let currentQ = 0;
             sessionCorrect = 0; sessionWrong = 0;
-            if(qList.length === 0) { qBox.innerHTML = "No questions yet."; return; }
+            if(qList.length === 0) { qBox.innerHTML = "No Questions yet."; return; }
             function renderQ() {
                 canClick = true; const data = qList[currentQ];
-                qBox.innerHTML = `<p class="mb-6 font-bold">${data.q}</p><div class="grid gap-3">${data.a.map((opt, i) => `<button id="opt-${i}" onclick="checkAns(${i}, ${data.c})" class="p-4 glass text-left rounded-2xl transition">${opt}</button>`).join('')}</div>`;
+                qBox.innerHTML = `<p class="mb-6 font-bold text-xl">${data.q}</p><div class="grid gap-3">${data.a.map((opt, i) => `<button id="opt-${i}" onclick="checkAns(${i}, ${data.c})" class="p-4 glass text-left rounded-2xl transition hover:border-cyan-500">${opt}</button>`).join('')}</div>`;
             }
             window.checkAns = (sel, cor) => {
                 if(!canClick) return; canClick = false;
@@ -192,23 +225,24 @@
         }
 
         function showResultBtn() {
-            document.getElementById('quiz-box').innerHTML = `<div class="text-center py-10"><i class="fas fa-check-circle text-5xl text-emerald-500 mb-4"></i><h3 class="text-2xl font-bold mb-4">Quiz End!</h3><button onclick="showFinalReport()" class="bg-cyan-600 px-8 py-3 rounded-xl font-bold">ප්‍රතිඵල බලන්න</button></div>`;
+            document.getElementById('quiz-box').innerHTML = `<div class="text-center py-10"><i class="fas fa-check-circle text-5xl text-emerald-500 mb-4"></i><h3 class="text-2xl font-bold mb-4">Quiz Finished!</h3><button onclick="showFinalReport()" class="bg-cyan-600 px-8 py-3 rounded-xl font-bold">ප්‍රතිඵල බලන්න</button></div>`;
         }
 
         function showFinalReport() {
-            const total = (sessionCorrect + sessionWrong) * 10;
+            const totalMarks = (sessionCorrect + sessionWrong) * 10;
             document.getElementById('quiz-box').innerHTML = `
                 <div class="space-y-6 text-center">
-                    <h3 class="text-xl font-bold text-cyan-400">ප්‍රතිඵල වාර්තාව</h3>
+                    <h3 class="text-xl font-bold text-cyan-400 italic">ප්‍රතිඵල වාර්තාව - ${activeSubject}</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20"><span class="text-emerald-400 font-bold">${sessionCorrect} Correct</span></div>
-                        <div class="bg-red-500/10 p-4 rounded-xl border border-red-500/20"><span class="text-red-400 font-bold">${sessionWrong} Wrong</span></div>
+                        <div class="bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20"><span class="text-emerald-400 font-bold">${sessionCorrect} නිවැරදි</span></div>
+                        <div class="bg-red-500/10 p-4 rounded-xl border border-red-500/20"><span class="text-red-400 font-bold">${sessionWrong} වැරදි</span></div>
                     </div>
-                    <div class="glass p-6"><span class="text-xs opacity-50 block">SCORE</span><span class="text-4xl font-black">${sessionCorrect * 10}</span> / ${total}</div>
-                    <button onclick="showSec('study')" class="w-full py-3 bg-white/5 rounded-xl border border-white/10 font-bold">Back to Hub</button>
+                    <div class="glass p-6"><span class="text-xs opacity-50 block uppercase mb-1 tracking-widest">Score</span><span class="text-4xl font-black">${sessionCorrect * 10}</span> / ${totalMarks}</div>
+                    <button onclick="showSec('home')" class="w-full py-4 bg-cyan-600 rounded-2xl font-bold shadow-lg">Done</button>
                 </div>`;
         }
 
+        // FIREBASE POINTS & PROFILE
         function savePoints(p) {
             const u = auth.currentUser;
             rtdb.ref('users/' + u.uid).transaction(c => {
@@ -232,7 +266,7 @@
             });
         }
 
-        // --- CHAT ---
+        // CHAT
         function sendMsg() {
             const i = document.getElementById('chat-msg'); if(!i.value.trim()) return;
             rtdb.ref('global_chat').push({name: auth.currentUser.displayName, text: i.value}); i.value = "";
@@ -240,7 +274,7 @@
         function loadMessages() {
             rtdb.ref('global_chat').limitToLast(20).on('value', s => {
                 const b = document.getElementById('chat-box'); b.innerHTML = "";
-                s.forEach(c => { const m = c.val(); b.innerHTML += `<div class="p-3 rounded-2xl bg-white/5 max-w-[80%]"><span class="text-[10px] text-cyan-500 block">${m.name}</span>${m.text}</div>`; });
+                s.forEach(c => { const m = c.val(); b.innerHTML += `<div class="p-3 rounded-2xl bg-white/5 max-w-[80%]"><span class="text-[10px] text-cyan-500 block font-bold">${m.name}</span>${m.text}</div>`; });
                 b.scrollTop = b.scrollHeight;
             });
         }
